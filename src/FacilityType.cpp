@@ -28,7 +28,19 @@ int FacilityType :: getEnvironmentScore() const{
     return category;
  }
 
-
+/* PROBABLY NOT NEEDED
+//WE ADDED
+string FacilityType::getCategoryString() const
+{
+   switch(category)
+   {
+      case FacilityCategory::LIFE_QUALITY: return "LIFE_QUALITY";
+      case FacilityCategory::ECONOMY: return "ECONOMY";
+      case FacilityCategory::ENVIRONMENT: return "ENVIRONMENT";
+      default: return "error"; //shouldnt happen
+   }
+}
+*/
 
 
 
