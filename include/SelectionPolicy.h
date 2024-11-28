@@ -29,10 +29,14 @@ class BalancedSelection: public SelectionPolicy {
         const string toString() const override;
         BalancedSelection *clone() const override;
         ~BalancedSelection() override = default;
+
     private:
         int LifeQualityScore;
         int EconomyScore;
         int EnvironmentScore;
+
+        // WE ADDED
+        int distance(const FacilityType&) const;
 };
 
 class EconomySelection: public SelectionPolicy {
