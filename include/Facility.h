@@ -20,13 +20,21 @@ enum class FacilityCategory {
 class FacilityType {
     public:
         FacilityType(const string& name, const FacilityCategory category, const int price, const int lifeQuality_score, const int economy_score, const int environment_score);
+
+        // -------- rule of 3 -------//
         FacilityType(const FacilityType& facilityType);
+        ~FacilityType();
+        FacilityType& operator=(const FacilityType& other);
+
+        // -------- getters --------//
         const string &getName() const;
         int getCost() const;
         int getLifeQualityScore() const;
         int getEnvironmentScore() const;
         int getEconomyScore() const;
         FacilityCategory getCategory() const;
+
+        // -------- strings functions ------------//
         string& categoryToString () const;
 
     protected:
