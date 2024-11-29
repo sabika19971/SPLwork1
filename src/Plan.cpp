@@ -46,7 +46,9 @@ void Plan :: step(){
 
     }
 }
+/*
         void printStatus();
         const vector<Facility*> &getFacilities() const;
         void addFacility(Facility* facility);
         const string toString() const;
+*/

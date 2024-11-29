@@ -7,6 +7,10 @@
 using std::string;
 using std::vector;
 
+// WE ADDED
+#include "Auxiliary.h"
+#include "Action.h"
+
 class BaseAction;
 class SelectionPolicy;
 
@@ -32,4 +36,7 @@ class Simulation {
         vector<Plan> plans;
         vector<Settlement*> settlements;
         vector<FacilityType> facilitiesOptions;
+
+        // WE ADDED
+        SelectionPolicy* getPolicyInstancePointer(string threeLetters);
 };

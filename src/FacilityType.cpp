@@ -4,18 +4,13 @@
                                              const int environment_score):
  name(name), category(category), price(price), lifeQuality_score(lifeQuality_score), 
  economy_score(economy_score),environment_score(environment_score)
- {
-
- }
+{}
 
  FacilityType :: FacilityType(const FacilityType& otherType):
                             name(otherType.name),category(otherType.category),price(otherType.price),
                             lifeQuality_score(otherType.lifeQuality_score), economy_score(otherType.economy_score),
                             environment_score(otherType.environment_score)
-                                                            {
-                                                               
-
- }
+{}
       
 
   const string& FacilityType:: getName() const{
