@@ -189,7 +189,7 @@ void Simulation::close()
 
 
 // WE ADDED
-SelectionPolicy* Simulation::getPolicyInstancePointer(string threeLetters)
+SelectionPolicy* Simulation::getPolicyInstancePointer(string& threeLetters)
 {
     if(threeLetters == "nve")
     {

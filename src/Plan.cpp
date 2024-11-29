@@ -26,7 +26,7 @@ void Plan :: step(){
           typeValue = typeValue -1;
        }
 
-    
+    }
     for (size_t i(0); i < underConstruction.size(); ++i) {
         if(underConstruction[i]->step()== FacilityStatus :: OPERATIONAL){
             facilities.push_back(underConstruction[i]);
@@ -40,12 +40,9 @@ void Plan :: step(){
     else{
         status = PlanStatus :: AVALIABLE;
     }
-     
-
-       
-
-    }
 }
+
+
 /*
         void printStatus();
         const vector<Facility*> &getFacilities() const;

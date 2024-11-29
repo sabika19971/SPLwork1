@@ -6,7 +6,7 @@ enum class SettlementType;
 enum class FacilityCategory;
 
 enum class ActionStatus{
-    COMPLETED, ERROR
+    COMPLETED, ERROR, PENDING // WE ADDED PENDING
 };
 
 class BaseAction{
@@ -48,6 +48,9 @@ class AddPlan : public BaseAction {
     private:
         const string settlementName;
         const string selectionPolicy;
+        
+        // WE ADDED
+        SelectionPolicy* getPolicyInstancePointer(const string& threeLetters);
 };
 
 
