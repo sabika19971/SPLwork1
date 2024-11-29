@@ -8,14 +8,7 @@
 
  }
 
- FacilityType :: FacilityType(const FacilityType& otherType):
-                            name(otherType.name),category(otherType.category),price(otherType.price),
-                            lifeQuality_score(otherType.lifeQuality_score), economy_score(otherType.economy_score),
-                            environment_score(otherType.environment_score)
-                                                            {
-                                                               
-
- }
+ 
       
 
   const string& FacilityType:: getName() const{
@@ -37,20 +30,9 @@ int FacilityType :: getEnvironmentScore() const{
  FacilityCategory FacilityType:: getCategory() const{
     return category;
  }
+ 
 
-/* PROBABLY NOT NEEDED
-//WE ADDED
-string FacilityType::getCategoryString() const
-{
-   switch(category)
-   {
-      case FacilityCategory::LIFE_QUALITY: return "LIFE_QUALITY";
-      case FacilityCategory::ECONOMY: return "ECONOMY";
-      case FacilityCategory::ENVIRONMENT: return "ENVIRONMENT";
-      default: return "error"; //shouldnt happen
-   }
-}
-*/
+
 
 
 

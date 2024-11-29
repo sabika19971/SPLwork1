@@ -19,14 +19,13 @@ void Plan :: setSelectionPolicy(SelectionPolicy* selectionPolicy){
 void Plan :: step(){
     if (status == PlanStatus ::AVALIABLE){
     int typeValue( static_cast<int>(settlement.getType()) );
-       while(underConstruction.size()<construction_limit ){
+       while(underConstruction.size()< construction_limit ){
           const FacilityType& facil =  selectionPolicy->selectFacility(facilityOptions);
           Facility* f = new Facility(facil, settlement.getName());
           underConstruction.push_back(f);
           typeValue = typeValue -1;
        }
-
-    
+    }
     for (size_t i(0); i < underConstruction.size(); ++i) {
         if(underConstruction[i]->step()== FacilityStatus :: OPERATIONAL){
             facilities.push_back(underConstruction[i]);
@@ -39,14 +38,29 @@ void Plan :: step(){
     }
     else{
         status = PlanStatus :: AVALIABLE;
+        
     }
      
-
-       
-
-    }
+    
 }
-        void printStatus();
-        const vector<Facility*> &getFacilities() const;
-        void addFacility(Facility* facility);
+        void Plan :: printStatus(){
+            
+            switch(status){
+                case PlanStatus :: AVALIABLE:{
+                std:: cout << "SettlementName< " + settlement.getName() + " >\n";
+                std:: cout << "PlanSatus: AVALIABLE";
+                }
+                case PlanStatus :: BUSY : {
+                    std:: cout << "SettlementName< " + settlement.getName() + " >\n";
+                    std:: cout << "PlanSatus: BUSY";
+                } 
+            }
+        }
+const vector<Facility*>& Plan:: getFacilities() const{
+    return facilities;
+
+}
+        void Plan :: addFacility(Facility* facility){
+            
+        }
         const string toString() const;
