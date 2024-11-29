@@ -38,5 +38,5 @@ class Simulation {
         vector<FacilityType> facilitiesOptions;
 
         // WE ADDED
-        SelectionPolicy* getPolicyInstancePointer(string threeLetters);
+        SelectionPolicy* getPolicyInstancePointer(string& threeLetters);
 };

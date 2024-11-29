@@ -1,0 +1,27 @@
+#include "../include/Action.h"
+
+
+SimulateStep::SimulateStep(const int numOfSteps) : numOfSteps(numOfSteps){} // no need for this -> according to chatGPT
+
+void SimulateStep::act(Simulation& simulation)
+{
+    simulation.step();
+    complete();
+}
+
+const string SimulateStep::toString() const
+{
+    string stat;
+    switch(getStatus())
+    {
+        case ActionStatus::COMPLETED : stat = "COMPLETED";
+        case ActionStatus::ERROR : stat = "ERROR";
+        default: stat = "PENDING";
+    }
+    return "SimulateStep : " + std::to_string(numOfSteps) + " - " + stat; 
+}
+
+SimulateStep* SimulateStep::clone() const
+{
+    return new SimulateStep(*this);
+}
