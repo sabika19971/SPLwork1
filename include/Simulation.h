@@ -29,6 +29,18 @@ class Simulation {
         void close();
         void open();
 
+        // WE ADDED
+        
+        // Rule of 3
+        Simulation(const Simulation& other);
+        ~Simulation();
+        Simulation& operator=(const Simulation& other);
+        
+        // Addition for Rule of 5
+        Simulation(Simulation&& other); // in the end
+        Simulation& operator=(Simulation&& other) noexcept; // in the end
+
+
     private:
         bool isRunning;
         int planCounter; //For assigning unique plan IDs

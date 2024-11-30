@@ -20,6 +20,11 @@ const string Settlement:: toString() const{
     }  
 }
 
+Settlement* Settlement::clone() const
+{
+    return new Settlement(*this);
+}
+
 
 
 

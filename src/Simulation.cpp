@@ -38,6 +38,111 @@ Simulation::Simulation(const string& configFilePath)
     }
 }
 
+// COPY CONSTRUCTOR
+Simulation::Simulation(const Simulation& other) : isRunning(other.isRunning), planCounter(other.planCounter)
+{
+    // actionLog - vector<BaseAction*> actionsLog - DEEP
+    for (BaseAction* b : other.actionsLog) 
+    {
+        (this -> actionsLog).push_back(b -> clone());
+    }
+    
+    // settlements - vector<Settlement*> settlements - DEEP
+    for (Settlement* s : other.settlements)
+    {
+        (this -> settlements).push_back(s -> clone());
+    }
+
+    // plans - vector<Plan> plans - DEEP
+    for (Plan p : other.plans)
+    {
+        (this -> plans).push_back(Plan(p)); // USES Plan copy constructor
+    }
+
+    // facilitiesOptions - vector<FacilityType> facilitiesOptions - DEEP
+    for (FacilityType f : other.facilitiesOptions)
+    {
+        (this -> facilitiesOptions).push_back(FacilityType(f)); // USES FacilityType copy constructor
+    }
+}
+
+// OPERATOR= METHOD
+Simulation& Simulation::operator=(const Simulation& other) // OTHER = RUNNING SIMULATION
+{
+    if (this != &other)
+    {
+        (this -> isRunning) = other.isRunning;
+        (this -> planCounter) = other.planCounter;
+    
+        // DELETE POINTERS
+        for (BaseAction* b : (this -> actionsLog)) 
+        {
+            delete b;
+        }
+
+        for (Settlement* s : (this -> settlements))
+        {
+            delete s;
+        }
+
+        // DELETE VECTOR NODES
+        (this -> actionsLog).clear();
+
+        (this -> settlements).clear();
+        
+        (this -> plans).clear();
+
+        (this -> facilitiesOptions).clear();
+
+        // DEEP COPY OTHER VECTORS
+        // actionLog - vector<BaseAction*> actionsLog - DEEP
+        for (BaseAction* b : other.actionsLog) 
+        {
+            (this -> actionsLog).push_back(b -> clone());
+        }
+        
+        // settlements - vector<Settlement*> settlements - DEEP
+        for (Settlement* s : other.settlements)
+        {
+            (this -> settlements).push_back(s -> clone());
+        }
+
+        // plans - vector<Plan> plans - DEEP
+        for (Plan p : other.plans)
+        {
+            (this -> plans).push_back(Plan(p)); // USES Plan copy constructor
+        }
+
+        // facilitiesOptions - vector<FacilityType> facilitiesOptions - DEEP
+        for (FacilityType f : other.facilitiesOptions)
+        {
+            (this -> facilitiesOptions).push_back(FacilityType(f)); // USES FacilityType copy constructor
+        }
+    }
+}
+
+// DESTRUCTOR
+Simulation::~Simulation()
+{
+    for (BaseAction* b : actionsLog)
+    {
+        delete b;
+    }
+
+    for (Settlement* s : settlements)
+    {
+        delete s;
+    }
+
+    // DELETE VECTOR NODES
+    actionsLog.clear();
+
+    settlements.clear();
+    
+    plans.clear();
+
+    facilitiesOptions.clear();
+}
 
 void Simulation::addPlan(const Settlement& settlement, SelectionPolicy* selectionPolicy)
 {
@@ -158,9 +263,9 @@ void Simulation::start()
         {
             action = new RestoreSimulation();
         }
-
+        
+        addAction(action);
         action -> act(*this);
-        delete action;
     }
 }
 

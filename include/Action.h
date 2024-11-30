@@ -9,6 +9,8 @@ enum class ActionStatus{
     COMPLETED, ERROR, PENDING // WE ADDED PENDING
 };
 
+extern Simulation* backup; // USING IT IN BackupSimulation.cpp
+
 class BaseAction{
     public:
         BaseAction();
