@@ -28,6 +28,8 @@ class Simulation {
         void step();
         void close();
         void open();
+        // WE ADDED
+        SelectionPolicy* getPolicyInstancePointer(string& threeLetters);
 
     private:
         bool isRunning;
@@ -36,7 +38,7 @@ class Simulation {
         vector<Plan> plans;
         vector<Settlement*> settlements;
         vector<FacilityType> facilitiesOptions;
+        Plan* defaultPlan;
 
-        // WE ADDED
-        SelectionPolicy* getPolicyInstancePointer(string& threeLetters);
+        
 };

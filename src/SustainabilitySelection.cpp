@@ -15,7 +15,7 @@ const FacilityType& SustainabilitySelection::selectFacility(const vector<Facilit
 
 const string SustainabilitySelection::toString() const
 {
-    return "SustainabilitySelection";
+    return "env";
 }
 
 SustainabilitySelection* SustainabilitySelection::clone() const
