@@ -5,7 +5,11 @@
 
 Simulation::Simulation(const string& configFilePath)
 {
-    planCounter = 0;
+    Settlement* defaultS = new Settlement("000",SettlementType ::CITY); 
+    Plan defaultPlan = Plan(-1,*defaultS,nullptr, facilitiesOptions); 
+    settlements.push_back(defaultS);
+    plans.push_back(defaultPlan);
+    planCounter = 1;
     std::ifstream file(configFilePath);
     string line;
  
@@ -199,14 +203,14 @@ Settlement& Simulation::getSettlement(const string& settlementName)
             return *sett;
         }
     }
-    // NEED TO THROW ERROR / RETURN A DEFAULT INSTANCE OF A SETTLEMENT
+    return *settlements[0];
 }
 
 Plan& Simulation::getPlan(const int planID)
 {
     if(planID >= plans.size())
     {
-        // NEED TO THROW ERROR / RETURN A DEFAULT INSTANCE OF A PLAN
+        return plans[0];// NEED TO THROW ERROR / RETURN A DEFAULT INSTANCE OF A PLAN
     }
     return plans[planID]; // works because of the way the constructor works, planCounter starts from 0
 }
@@ -214,7 +218,7 @@ Plan& Simulation::getPlan(const int planID)
 void Simulation::start()
 {
     std::cout << "The simulation has started" << std::endl;
-    open(); 
+    open(); // make is running to TRUE
     string userInput;
     BaseAction* action;
     while (isRunning)
@@ -231,6 +235,8 @@ void Simulation::start()
         }
         else if (parsedInput[0] == "settlement")
         {
+
+           
             action = new AddSettlement(parsedInput[1], static_cast<SettlementType>(std::stoi(parsedInput[2])));
         }
         else if (parsedInput[0] == "facility")
@@ -263,9 +269,22 @@ void Simulation::start()
         {
             action = new RestoreSimulation();
         }
-        
-        addAction(action);
+
+        addAction(action); 
         action -> act(*this);
+       
+
+    }
+}
+
+const void Simulation:: printActionLog(){
+    if(actionsLog.size()==0){
+        std::cout<<"no actions to print";
+    }
+    for (BaseAction* action : actionsLog){
+        int i(1);
+        std::cout<< i << ")"<< action->toString() <<"\n";
+        i++;
     }
 }
 
@@ -294,7 +313,7 @@ void Simulation::close()
 
 
 // WE ADDED
-SelectionPolicy* Simulation::getPolicyInstancePointer(string& threeLetters)
+SelectionPolicy* Simulation::getPolicyInstancePointer(const string& threeLetters)
 {
     if(threeLetters == "nve")
     {

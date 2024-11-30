@@ -58,9 +58,9 @@ class AddPlan : public BaseAction {
 
 class AddSettlement : public BaseAction {
     public:
-        AddSettlement(const string &settlementName,SettlementType settlementType);
-        void act(Simulation &simulation) override;
-        AddSettlement *clone() const override;
+        AddSettlement(const string& settlementName,SettlementType settlementType);
+        void act(Simulation& simulation) override;
+        AddSettlement* clone() const override;
         const string toString() const override;
     private:
         const string settlementName;
@@ -100,7 +100,7 @@ class ChangePlanPolicy : public BaseAction {
     public:
         ChangePlanPolicy(const int planId, const string &newPolicy);
         void act(Simulation &simulation) override;
-        ChangePlanPolicy *clone() const override;
+        ChangePlanPolicy* clone() const override;
         const string toString() const override;
     private:
         const int planId;

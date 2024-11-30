@@ -8,9 +8,10 @@ AddPlan::AddPlan(const string& settlementName, const string& selectionPolicy) : 
 void AddPlan::act(Simulation& simulation)
 {
     SelectionPolicy* policy = getPolicyInstancePointer(selectionPolicy); // DONT DELETE THIS, USED BY THE simulation.addPlan
-    if (policy == nullptr || !simulation.isSettlementExists(settlementName))
+    if (policy == nullptr || !simulation.isSettlementExists(settlementName)) 
     {
         error("Cannot create this plan");
+        
     }
     else
     {
@@ -24,7 +25,7 @@ const string AddPlan::toString() const
     switch(getStatus())
     {
         case ActionStatus::COMPLETED : stat = "COMPLETED";
-        case ActionStatus::ERROR : stat = "ERROR";
+        case ActionStatus::ERROR : stat = "ERROR" + getErrorMsg();
         default: stat = "PENDING";
     }
     return "AddPlan : " + settlementName + selectionPolicy + " - " + stat; 
@@ -32,7 +33,7 @@ const string AddPlan::toString() const
 
 AddPlan* AddPlan::clone() const
 {
-    return new AddPlan(*this);
+    return new AddPlan(*this); //  send the actual memory (operator *)
 }
 
 // WE ADDED

@@ -15,7 +15,7 @@ const FacilityType& EconomySelection::selectFacility(const vector<FacilityType>&
 
 const string EconomySelection::toString() const
 {
-    return "EconomySelection";
+    return "eco";
 }
 
 EconomySelection* EconomySelection::clone() const
