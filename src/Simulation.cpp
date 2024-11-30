@@ -171,6 +171,16 @@ void Simulation::start()
 
     }
 }
+const void Simulation:: printActionLog(){
+    if(actionsLog.size()==0){
+        std::cout<<"no actions to print";
+    }
+    for (BaseAction* action : actionsLog){
+        int i(1);
+        std::cout<< i << ")"<< action->toString() <<"\n";
+        i++;
+    }
+}
 
 void Simulation::step()
 {

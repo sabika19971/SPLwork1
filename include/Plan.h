@@ -23,7 +23,9 @@ class Plan {
         const vector<Facility*>& getFacilities() const;
         void addFacility(Facility* facility);
         const string toString() const;
-        const int getPlanId() const; 
+        const int getPlanId() const;
+        const string getPolicyType() const;
+         
 
     private:
         int plan_id;

@@ -34,7 +34,7 @@ int BalancedSelection::distance(const FacilityType& facilityType) const
 
 const string BalancedSelection::toString() const
 {
-    return "BalancedSelection";
+    return "bal";
 }
 
 BalancedSelection* BalancedSelection::clone() const

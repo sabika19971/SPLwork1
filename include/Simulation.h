@@ -29,7 +29,8 @@ class Simulation {
         void close();
         void open();
         // WE ADDED
-        SelectionPolicy* getPolicyInstancePointer(string& threeLetters);
+        SelectionPolicy* getPolicyInstancePointer(const string& threeLetters);
+        const void printActionLog();
 
     private:
         bool isRunning;

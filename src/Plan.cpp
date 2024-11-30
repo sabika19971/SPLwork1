@@ -25,7 +25,9 @@ const int Plan :: getPlanId() const{
         }
 
 void Plan :: setSelectionPolicy(SelectionPolicy* selectionPolicy){
+    delete selectionPolicy; 
     this -> selectionPolicy = selectionPolicy;
+    policyType = selectionPolicy->toString();
 }
 
 void Plan :: step(){

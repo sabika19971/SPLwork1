@@ -24,7 +24,7 @@ ChangePlanPolicy::ChangePlanPolicy(const int planId, const string& newPolicy): p
     }
 
      const string ChangePlanPolicy ::  toString() const {
-            
+            return "we have change the policy to " + newPolicy;
         }
 
 
