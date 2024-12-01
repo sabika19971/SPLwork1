@@ -20,6 +20,7 @@ const string Settlement:: toString() const
     case SettlementType ::VILLAGE : return name + " : VILLAGE" ;       
     case SettlementType ::METROPOLIS : return name + " : METROPOLIS" ;
     case SettlementType ::CITY : return  name + " : CITY" ;
+     default: return " ";
     }  
 }
 

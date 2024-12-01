@@ -1,5 +1,6 @@
 #include "../include/Action.h"
-
+#include "../include/Plan.h"
+#include "../include/Simulation.h"
 
 PrintPlanStatus:: PrintPlanStatus(int planId) : planId(planId){}
 

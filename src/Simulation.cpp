@@ -1,18 +1,20 @@
 #include "../include/Simulation.h"
 #include <fstream>
 #include <iostream>
-
+using std::string;
+using std::vector;
 
 Simulation::Simulation(const string& configFilePath) : planCounter(0), actionsLog(), plans(), settlements(), facilitiesOptions() 
 {
-    Settlement* defaultS = new Settlement("000",SettlementType ::CITY); // default settlement instance
-    Plan defaultPlan = Plan(-1,*defaultS,nullptr, facilitiesOptions); // default plan instance
-    settlements.push_back(defaultS);
-    plans.push_back(defaultPlan);
+   
+  
+    
     planCounter = 1;
+    std:: cout <<"constractor5"<<std::endl;
     std::ifstream file(configFilePath);
+    std:: cout <<"constractor3asd"<<std::endl;
     string line;
- 
+  
     while (std::getline(file,line))
     {
         vector<string> arguments = Auxiliary::parseArguments(line); // Parsing a specific line
@@ -40,6 +42,14 @@ Simulation::Simulation(const string& configFilePath) : planCounter(0), actionsLo
             planCounter++;
         }
     }
+    Settlement* defaultS = new Settlement("000",SettlementType ::CITY); // default settlement instance
+       std:: cout <<"constractor1"<<std::endl;
+    Plan defaultPlan = Plan(-1,*defaultS,new NaiveSelection(), facilitiesOptions); // default plan instance
+       std:: cout <<"constractor2"<<std::endl;
+    settlements.insert(settlements.begin(),defaultS);
+       std:: cout <<"constractor3"<<std::endl;
+    plans.insert(plans.begin(),defaultPlan); // need to work on 
+    std:: cout <<"constractor4"<<std::endl;
 }
 
 // COPY CONSTRUCTOR
@@ -222,11 +232,12 @@ void Simulation::start()
     std::cout << "The simulation has started" << std::endl;
     open(); // make is running to TRUE
     string userInput;
-    BaseAction* action;
+    BaseAction* action = nullptr;
     while (isRunning)
     {
         std::cin >> userInput; // User Input
         vector<string> parsedInput = Auxiliary::parseArguments(userInput);
+        
         if (parsedInput[0] == "step")
         {
             action = new SimulateStep(std::stoi(parsedInput[1]));
@@ -269,9 +280,13 @@ void Simulation::start()
         {
             action = new RestoreSimulation();
         }
-
-        addAction(action); 
+        
         action -> act(*this);
+        addAction(action); 
+        
+       
+        
+       //Auxiliary::execute(*this, parsedInput);
     }
 }
 

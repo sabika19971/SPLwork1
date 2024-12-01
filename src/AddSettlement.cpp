@@ -1,5 +1,6 @@
 #include "../include/Action.h"
-
+#include "../include/Settlement.h"
+#include "../include/Simulation.h"
 AddSettlement::AddSettlement(const string& settlementName,SettlementType settlementType):
                             settlementName(settlementName), settlementType(settlementType)
                             {}

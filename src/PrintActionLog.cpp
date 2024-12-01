@@ -1,5 +1,5 @@
 #include "../include/Action.h"
-
+#include "../include/Simulation.h"
 
 PrintActionsLog::PrintActionsLog(){}
 

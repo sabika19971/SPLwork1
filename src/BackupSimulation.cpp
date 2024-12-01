@@ -1,4 +1,6 @@
 #include "../include/Action.h"
+#include "../include/Simulation.h"
+
 
 
 BackupSimulation::BackupSimulation(){}

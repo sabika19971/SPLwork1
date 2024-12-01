@@ -1,4 +1,7 @@
 #include "../include/Action.h"
+#include "../include/Simulation.h"
+
+#include "../include/SelectionPolicy.h"
 
 
 // NO NEED FOR THIS -> ACCORDING TO CHATGPT

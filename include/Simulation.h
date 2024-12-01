@@ -4,16 +4,26 @@
 #include "Facility.h"
 #include "Plan.h"
 #include "Settlement.h"
+#include "Action.h"
+#include "Auxiliary.h"
 using std::string;
 using std::vector;
 
-// WE ADDED
-#include "Auxiliary.h"
-#include "Action.h" // New
-//class Action; // New
-
+//#include "Action.h" // New
+/*
 class BaseAction;
+class SimulateStep;
 class SelectionPolicy;
+class AddPlan;
+class AddSettlement;
+class AddFacility;
+class PrintPlanStatus;
+class ChangePlanPolicy;
+class PrintActionsLog;
+class Close;
+class BackupSimulation;
+class RestoreSimulation;
+*/
 
 class Simulation {
     public:
@@ -55,5 +65,5 @@ class Simulation {
         vector<FacilityType> facilitiesOptions;
         //Plan* defaultPlan; ISNT USED
 
-        
+
 };

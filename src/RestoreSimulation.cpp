@@ -1,4 +1,5 @@
 #include "../include/Action.h"
+#include "../include/Simulation.h"
 
 
 RestoreSimulation::RestoreSimulation(){}

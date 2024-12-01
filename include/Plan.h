@@ -5,6 +5,8 @@
 #include "SelectionPolicy.h"
 #include <iostream>
 using std::vector;
+using std::string;
+
 
 enum class PlanStatus {
     AVALIABLE,
@@ -31,11 +33,11 @@ class Plan {
         // Rule of 3
         Plan(const Plan& other);
         ~Plan();
-        Plan& operator=(const Plan& other) = delete; // DONT NEED TO IMPLEMENT
+        //Plan& operator=(const Plan& other) = default; // DONT NEED TO IMPLEMENT
         
         // Addition for Rule of 5
-        Plan(Plan&& other); // in the end
-        Plan& operator=(Plan&& other) = delete; // DONT NEED TO IMPLEMENT
+        //Plan(Plan&& other) = delete; // in the end
+        //Plan& operator=(Plan&& other) = delete; // DONT NEED TO IMPLEMENT
 
     private:
         int plan_id;

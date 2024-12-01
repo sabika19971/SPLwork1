@@ -1,4 +1,6 @@
 #include "../include/Action.h"
+#include "../include/Plan.h"
+#include "../include/Simulation.h"
 
 
 ChangePlanPolicy::ChangePlanPolicy(const int planId, const string& newPolicy): 
