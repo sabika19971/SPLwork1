@@ -3,10 +3,10 @@
 #include <iostream>
 
 
-Simulation::Simulation(const string& configFilePath)
+Simulation::Simulation(const string& configFilePath) : planCounter(0), actionsLog(), plans(), settlements(), facilitiesOptions() 
 {
-    Settlement* defaultS = new Settlement("000",SettlementType ::CITY); 
-    Plan defaultPlan = Plan(-1,*defaultS,nullptr, facilitiesOptions); 
+    Settlement* defaultS = new Settlement("000",SettlementType ::CITY); // default settlement instance
+    Plan defaultPlan = Plan(-1,*defaultS,nullptr, facilitiesOptions); // default plan instance
     settlements.push_back(defaultS);
     plans.push_back(defaultPlan);
     planCounter = 1;
@@ -43,7 +43,8 @@ Simulation::Simulation(const string& configFilePath)
 }
 
 // COPY CONSTRUCTOR
-Simulation::Simulation(const Simulation& other) : isRunning(other.isRunning), planCounter(other.planCounter)
+Simulation::Simulation(const Simulation& other) : isRunning(other.isRunning), planCounter(other.planCounter),
+                                                actionsLog(), plans(), settlements(), facilitiesOptions() 
 {
     // actionLog - vector<BaseAction*> actionsLog - DEEP
     for (BaseAction* b : other.actionsLog) 
@@ -66,11 +67,11 @@ Simulation::Simulation(const Simulation& other) : isRunning(other.isRunning), pl
     // facilitiesOptions - vector<FacilityType> facilitiesOptions - DEEP
     for (FacilityType f : other.facilitiesOptions)
     {
-        (this -> facilitiesOptions).push_back(FacilityType(f)); // USES FacilityType copy constructor
+        (this -> facilitiesOptions).push_back(FacilityType(f)); // USES FacilityType  default copy constructor 
     }
 }
 
-// OPERATOR= METHOD
+// OPERATOR= 
 Simulation& Simulation::operator=(const Simulation& other) // OTHER = RUNNING SIMULATION
 {
     if (this != &other)
@@ -98,7 +99,7 @@ Simulation& Simulation::operator=(const Simulation& other) // OTHER = RUNNING SI
 
         (this -> facilitiesOptions).clear();
 
-        // DEEP COPY OTHER VECTORS
+        // DEEP COPY other VECTORS
         // actionLog - vector<BaseAction*> actionsLog - DEEP
         for (BaseAction* b : other.actionsLog) 
         {
@@ -120,9 +121,10 @@ Simulation& Simulation::operator=(const Simulation& other) // OTHER = RUNNING SI
         // facilitiesOptions - vector<FacilityType> facilitiesOptions - DEEP
         for (FacilityType f : other.facilitiesOptions)
         {
-            (this -> facilitiesOptions).push_back(FacilityType(f)); // USES FacilityType copy constructor
+            (this -> facilitiesOptions).push_back(FacilityType(f)); // USES FacilityType default copy constructor
         }
     }
+    return *this;
 }
 
 // DESTRUCTOR
@@ -203,16 +205,16 @@ Settlement& Simulation::getSettlement(const string& settlementName)
             return *sett;
         }
     }
-    return *settlements[0];
+    return *settlements[0]; // default instance
 }
 
 Plan& Simulation::getPlan(const int planID)
 {
     if(planID >= plans.size())
     {
-        return plans[0];// NEED TO THROW ERROR / RETURN A DEFAULT INSTANCE OF A PLAN
+        return plans[0]; // default instance
     }
-    return plans[planID]; // works because of the way the constructor works, planCounter starts from 0
+    return plans[planID]; 
 }
 
 void Simulation::start()
@@ -234,9 +236,7 @@ void Simulation::start()
             action = new AddPlan(parsedInput[1], parsedInput[2]);
         }
         else if (parsedInput[0] == "settlement")
-        {
-
-           
+        { 
             action = new AddSettlement(parsedInput[1], static_cast<SettlementType>(std::stoi(parsedInput[2])));
         }
         else if (parsedInput[0] == "facility")
@@ -272,18 +272,18 @@ void Simulation::start()
 
         addAction(action); 
         action -> act(*this);
-       
-
     }
 }
 
 const void Simulation:: printActionLog(){
-    if(actionsLog.size()==0){
+    if(actionsLog.empty())
+    {
         std::cout<<"no actions to print";
     }
-    for (BaseAction* action : actionsLog){
-        int i(1);
-        std::cout<< i << ")"<< action->toString() <<"\n";
+    int i(1);
+    for (BaseAction* action : actionsLog)
+    {
+        std::cout<< i << ")"<< action -> toString() <<"\n";
         i++;
     }
 }
@@ -308,7 +308,6 @@ void Simulation::close()
     {
         std::cout << plan.toString() << std::endl;
     }
-    // NEED TO DELETE IRRELEVENT MEMORY TO AVOID MEMORY LEAKS, THIS FUNCTION ENDS THE PROGRAM
 }
 
 

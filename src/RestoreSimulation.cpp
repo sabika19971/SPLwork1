@@ -7,7 +7,7 @@ void RestoreSimulation::act(Simulation& simulation)
 {
     if (backup != nullptr)
     {
-        simulation = *backup; // NEED TO IMPLEMENT THE LOGIC IN THE Operation= METHOD OF Simulation.cpp
+        simulation = *backup; 
         complete();
     }
     else

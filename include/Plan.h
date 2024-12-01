@@ -25,7 +25,17 @@ class Plan {
         const string toString() const;
         const int getPlanId() const;
         const string getPolicyType() const;
-         
+        
+        // WE ADDED
+
+        // Rule of 3
+        Plan(const Plan& other);
+        ~Plan();
+        Plan& operator=(const Plan& other) = delete; // DONT NEED TO IMPLEMENT
+        
+        // Addition for Rule of 5
+        Plan(Plan&& other); // in the end
+        Plan& operator=(Plan&& other) = delete; // DONT NEED TO IMPLEMENT
 
     private:
         int plan_id;

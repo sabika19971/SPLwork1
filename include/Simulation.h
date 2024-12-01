@@ -9,7 +9,8 @@ using std::vector;
 
 // WE ADDED
 #include "Auxiliary.h"
-#include "Action.h"
+#include "Action.h" // New
+//class Action; // New
 
 class BaseAction;
 class SelectionPolicy;
@@ -28,6 +29,7 @@ class Simulation {
         void step();
         void close();
         void open();
+
         // WE ADDED
         SelectionPolicy* getPolicyInstancePointer(const string& threeLetters);
         const void printActionLog();
@@ -41,7 +43,7 @@ class Simulation {
         
         // Addition for Rule of 5
         Simulation(Simulation&& other); // in the end
-        Simulation& operator=(Simulation&& other) noexcept; // in the end
+        Simulation& operator=(Simulation&& other); // in the end
 
 
     private:
@@ -51,7 +53,7 @@ class Simulation {
         vector<Plan> plans;
         vector<Settlement*> settlements;
         vector<FacilityType> facilitiesOptions;
-        Plan* defaultPlan;
+        //Plan* defaultPlan; ISNT USED
 
         
 };

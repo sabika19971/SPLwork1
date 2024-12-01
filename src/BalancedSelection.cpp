@@ -1,5 +1,5 @@
 #include "../include/SelectionPolicy.h"
-#include <algorithm>; // for std::max/min
+#include <algorithm> // for std::max/min
 
 
 BalancedSelection::BalancedSelection(int LifeQualityScore, int EconomyScore, int EnvironmentScore) :

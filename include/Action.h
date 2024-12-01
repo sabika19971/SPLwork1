@@ -1,7 +1,11 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "Facility.h" // New
 #include "Simulation.h"
+// class Simulation; // New
+using std::string; // New
+class SelectionPolicy; // New
 enum class SettlementType;
 enum class FacilityCategory;
 

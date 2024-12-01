@@ -5,7 +5,10 @@ SimulateStep::SimulateStep(const int numOfSteps) : numOfSteps(numOfSteps){} // n
 
 void SimulateStep::act(Simulation& simulation)
 {
-    simulation.step();
+    for (int i = 1; i <= numOfSteps; i++)
+    {
+        simulation.step();
+    }
     complete();
 }
 

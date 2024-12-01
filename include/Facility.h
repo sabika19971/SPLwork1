@@ -20,7 +20,6 @@ enum class FacilityCategory {
 class FacilityType {
     public:
         FacilityType(const string& name, const FacilityCategory category, const int price, const int lifeQuality_score, const int economy_score, const int environment_score);
-       
         const string &getName() const;
         int getCost() const;
         int getLifeQualityScore() const;
@@ -28,7 +27,6 @@ class FacilityType {
         int getEconomyScore() const;
         FacilityCategory getCategory() const;
         
-
     protected:
         const string name;
         const FacilityCategory category;
@@ -51,6 +49,9 @@ class Facility: public FacilityType {
         void setStatus(FacilityStatus status);
         const FacilityStatus& getStatus() const;
         const string toString() const;
+
+        // WE ADDED
+        Facility* clone() const;
 
     private:
         const string settlementName; // to which settelment the facility belongs

@@ -10,12 +10,12 @@ void AddPlan::act(Simulation& simulation)
     SelectionPolicy* policy = getPolicyInstancePointer(selectionPolicy); // DONT DELETE THIS, USED BY THE simulation.addPlan
     if (policy == nullptr || !simulation.isSettlementExists(settlementName)) 
     {
-        error("Cannot create this plan");
-        
+        error("Cannot create this plan");      
     }
     else
     {
         simulation.addPlan(simulation.getSettlement(settlementName), policy);
+        complete();
     }
 }
 
@@ -33,7 +33,7 @@ const string AddPlan::toString() const
 
 AddPlan* AddPlan::clone() const
 {
-    return new AddPlan(*this); //  send the actual memory (operator *)
+    return new AddPlan(*this); 
 }
 
 // WE ADDED

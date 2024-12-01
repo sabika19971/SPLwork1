@@ -1,15 +1,20 @@
 #include "../include/Action.h"
 
 
+PrintActionsLog::PrintActionsLog(){}
 
-void ChangePlanPolicy :: act(Simulation &simulation){
+void PrintActionsLog :: act(Simulation &simulation)
+{
     simulation.printActionLog();
+    complete();
 }
 
+PrintActionsLog* PrintActionsLog:: clone() const 
+{
+    return new PrintActionsLog(*this);
+}
 
-        PrintActionsLog* PrintActionsLog:: clone() const {
-            return new PrintActionsLog(*this);
-        }
-        const string PrintActionsLog :: toString() const {
-                return "Action Print Log";
-        }
+const string PrintActionsLog :: toString() const 
+{
+        return "Action Print Log";
+}

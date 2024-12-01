@@ -1,37 +1,41 @@
 #include "../include/Facility.h"
- FacilityType::FacilityType(const string& name, const FacilityCategory category, const int price, 
-                                    const int lifeQuality_score, const int economy_score,
-                                             const int environment_score):
- name(name), category(category), price(price), lifeQuality_score(lifeQuality_score), 
- economy_score(economy_score),environment_score(environment_score)
-{}
 
- FacilityType :: FacilityType(const FacilityType& otherType):
-                            name(otherType.name),category(otherType.category),price(otherType.price),
-                            lifeQuality_score(otherType.lifeQuality_score), economy_score(otherType.economy_score),
-                            environment_score(otherType.environment_score)
-{}
-      
 
-  const string& FacilityType:: getName() const{
-    return name;
-  }
+FacilityType::FacilityType(const string& name, const FacilityCategory category, const int price, 
+                           const int lifeQuality_score, const int economy_score,const int environment_score):
+name(name), category(category), price(price), lifeQuality_score(lifeQuality_score), 
+economy_score(economy_score),environment_score(environment_score)
+{}    
 
-   int FacilityType:: getCost() const{
-    return price;
-   }
-   int FacilityType:: getLifeQualityScore() const{
-    return lifeQuality_score;
-   }
-int FacilityType :: getEnvironmentScore() const{
+const string& FacilityType:: getName() const
+{
+   return name;
+}
+
+int FacilityType:: getCost() const
+{
+   return price;
+}
+
+int FacilityType:: getLifeQualityScore() const
+{
+   return lifeQuality_score;
+}
+
+int FacilityType :: getEnvironmentScore() const
+{
     return environment_score;
 }
- int FacilityType:: getEconomyScore() const{
-    return economy_score;
- }
- FacilityCategory FacilityType:: getCategory() const{
-    return category;
- }
+
+int FacilityType:: getEconomyScore() const
+{
+   return economy_score;
+}
+
+FacilityCategory FacilityType:: getCategory() const
+{
+   return category;
+}
  
 
 
