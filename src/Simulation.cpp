@@ -44,11 +44,11 @@ Simulation::Simulation(const string& configFilePath) : planCounter(0), actionsLo
     }
     Settlement* defaultS = new Settlement("000",SettlementType ::CITY); // default settlement instance
        std:: cout <<"constractor1"<<std::endl;
-    Plan defaultPlan = Plan(-1,*defaultS,new NaiveSelection(), facilitiesOptions); // default plan instance
+     Plan defaultPlan = Plan(-1,*defaultS,new NaiveSelection(), facilitiesOptions); // default plan instance
        std:: cout <<"constractor2"<<std::endl;
     settlements.insert(settlements.begin(),defaultS);
        std:: cout <<"constractor3"<<std::endl;
-    plans.insert(plans.begin(),defaultPlan); // need to work on 
+  // plans.emplace(plans.begin(), -1, *(new Settlement("000",SettlementType ::CITY)), new NaiveSelection(), facilitiesOptions); // need to work on 
     std:: cout <<"constractor4"<<std::endl;
 }
 
@@ -235,11 +235,16 @@ void Simulation::start()
     BaseAction* action = nullptr;
     while (isRunning)
     {
-        std::cin >> userInput; // User Input
-        vector<string> parsedInput = Auxiliary::parseArguments(userInput);
-        
-        if (parsedInput[0] == "step")
+        std::getline (std::cin,userInput);
+        vector<std::string> parsedInput = Auxiliary::parseArguments(userInput);
+      
+        if (parsedInput[0] == "step") // need debug
         {
+            std::cout<<"hi"<<std::endl;
+           
+            std::cout<<std::stoi(parsedInput[1])<<std::endl;
+            std::cout<<"bye"<<std::endl;
+            
             action = new SimulateStep(std::stoi(parsedInput[1]));
         }
         else if (parsedInput[0] == "plan")
@@ -256,8 +261,9 @@ void Simulation::start()
                                     std::stoi(parsedInput[3]), std::stoi(parsedInput[4]), std::stoi(parsedInput[5]),
                                     std::stoi(parsedInput[6]));
         }
-        else if (parsedInput[0] == "planStatus")
+        else if (parsedInput[0] == "planStatus") //not working  need to debug 
         {
+            
             action = new PrintPlanStatus(std::stoi(parsedInput[1]));
         }
         else if (parsedInput[0] == "changePolicy")

@@ -1,7 +1,10 @@
 #include "../include/Action.h"
 #include "../include/Simulation.h"
 
-SimulateStep::SimulateStep(const int numOfSteps) : numOfSteps(numOfSteps){} // no need for this -> according to chatGPT
+SimulateStep::SimulateStep(const int numOfSteps) : numOfSteps(numOfSteps){
+
+    
+} // no need for this -> according to chatGPT
 
 void SimulateStep::act(Simulation& simulation)
 {
