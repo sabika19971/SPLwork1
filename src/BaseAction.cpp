@@ -9,7 +9,9 @@ ActionStatus BaseAction::getStatus() const
 
 void BaseAction::complete()
 {
+    
     status = ActionStatus::COMPLETED;
+    
 }
 
 void BaseAction::error(string errorMsg)

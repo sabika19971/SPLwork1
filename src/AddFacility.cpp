@@ -10,18 +10,45 @@ AddFacility :: AddFacility(const string& facilityName, const FacilityCategory fa
                                          {}
 
 
+// void AddFacility ::act(Simulation& simulation)
+// {
+//     FacilityType nF(facilityName,facilityCategory, price, lifeQualityScore,economyScore,environmentScore);
+//     if(!simulation.addFacility(nF))
+//     {  
+//         error("Facility already exists"); 
+//     } 
+//     else
+//     {
+//         complete();
+//     }  
+// }
+
+
+
 void AddFacility ::act(Simulation& simulation)
 {
-    FacilityType nF(facilityName,facilityCategory, price, lifeQualityScore,economyScore,environmentScore);
-    if(!simulation.addFacility(nF))
-    {  
+   // -------- validatoin of input ----------//
+     if(simulation.isFacilityExsist(facilityName)){
+        // -------- perform the action -----------//
+        FacilityType nF(facilityName,facilityCategory,price,lifeQualityScore,economyScore,environmentScore);
+        if(simulation.addFacility(nF)){
+            complete();
+             std::cout<<this->toString()<<std::endl;
+        }
+        else{
+             error("Facility already exists"); 
+             std::cout<<this->toString()<<std::endl;
+        }
+        
+         
+     }
+     else{
         error("Facility already exists"); 
-    } 
-    else
-    {
-        complete();
-    }  
+        std::cout<<this->toString()<<std::endl;   
+        std::cout<<"Facility already exists"<<std::endl;   
+     }    
 }
+
 
 AddFacility* AddFacility :: clone() const 
 {
@@ -36,15 +63,19 @@ const string AddFacility:: toString() const
     }
 
     std::ostringstream addF;
-    addF << "AddFacility : with Facility name:"+ facilityName + " Facility Type: ";
+    addF << "AddFacility : with Facility name:"+ facilityName + " Facility Category: ";
+    if(facilityCategory == FacilityCategory::ECONOMY){
 
-    switch(facilityCategory)
-    {
-        case FacilityCategory:: ECONOMY : addF << "ECONOMY";
-        case FacilityCategory:: ENVIRONMENT : addF << "ENVIRONMENT";
-        case FacilityCategory:: LIFE_QUALITY : addF << "LIFE_QUALITY";    
-    }
-    addF << "Price | L | ECO | ENV" << price << "|" <<lifeQualityScore << "|"<<economyScore << "|" << environmentScore << "COMPLETE";
+   addF<< "ECONOMY ";
+  }
+  else if (facilityCategory == FacilityCategory::ENVIRONMENT){
+      addF<<"ENVIRONMENT ";
+  }
+  else{
+   addF<< "LIFE_QUALITY ";
+  }
+    
+    addF << "Price | L | ECO | ENV " << price << "|" <<lifeQualityScore << "|"<<economyScore << "|" << environmentScore << " COMPLETE";
     return addF.str();
 }
 

@@ -92,7 +92,7 @@ void Plan :: step()
         }
     }
 
-    if(underConstruction.size() == construction_limit) 
+    if(underConstruction.size() == construction_limit+1) 
     {
         status = PlanStatus :: BUSY;
     }
@@ -136,8 +136,8 @@ const string Plan :: toString() const
     oss << "Plan ID: " << plan_id << "\n";
 
     // ---------- print settelment name and type + selection policy ----- //
-    oss << "SettlementName: " << settlement.toString() << "\n";
-    oss << "Selection Policy: " << selectionPolicy->toString() << "\n";
+    oss  << settlement.toString() << "\n";
+    
     
     // ---------- print plan status ----------- //
     switch (status)
@@ -155,7 +155,7 @@ const string Plan :: toString() const
     }
 
     // --------- selectionPolicy --------- //
-    oss << "SelectionPolicy: " << selectionPolicy->toString();
+    oss << "SelectionPolicy: " << selectionPolicy->toString()<<"\n";
     
     // -------- print life,economy,enviroment _ score ----------- //
     oss << "Life Quality Score: " << life_quality_score << "\n";
@@ -188,6 +188,6 @@ const string Plan :: toString() const
 
 const string Plan::getPolicyType() const
 { 
-    return "";
+   return policyType;
 }
     

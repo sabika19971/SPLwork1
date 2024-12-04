@@ -36,6 +36,21 @@ FacilityCategory FacilityType:: getCategory() const
 {
    return category;
 }
+
+string FacilityType:: strGetCategory() const{
+   string strcategory;
+  if(category == FacilityCategory::ECONOMY){
+
+   strcategory= "ECONOMY";
+  }
+  else if (category == FacilityCategory::ENVIRONMENT){
+      strcategory= "ENVIRONMENT";
+  }
+  else{
+   strcategory= "LIFE_QUALITY";
+  }
+    return strcategory;
+}
  
 
 

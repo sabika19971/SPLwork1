@@ -13,11 +13,12 @@ int main(int argc, char** argv){
         return 0;
     }
     string configurationFile = argv[1];
-    cout <<"2"  << endl;
     Simulation simulation(configurationFile);
-      cout << "3"<< endl;
+    Simulation simulation2(simulation);
+    // simulation2.addPlan(simulation2.getSettlement("KfarSPL"),new NaiveSelection());
+    // simulation = simulation2;
+    
     simulation.start();
-      cout << "4" << endl;
     if(backup!=nullptr){
         delete backup;
       	backup = nullptr;

@@ -7,17 +7,45 @@ AddSettlement::AddSettlement(const string& settlementName,SettlementType settlem
 
 void AddSettlement::act(Simulation& simulation) 
 { 
-    Settlement* nS = new Settlement(settlementName,settlementType);
-    if(simulation.getSettlement(settlementName).getType() != settlementType || !simulation.isSettlementExists(settlementName)) // enum compared by value according to chat 
-    { 
-          error("Settlement already exist or you have entered a non valide Settlement type.");   
-    } 
-    else
-    {
-        simulation.addSettlement(nS);
-        complete();
+    // -------- validatoin of input ----------// 
+    if(!(simulation.isSettlementExists(settlementName))){
+        // --------- preforming the act ---------- //
+            Settlement* nS = new Settlement(settlementName,settlementType);
+            bool isAdded (simulation.addSettlement(nS));
+            if(isAdded){
+                complete();
+                
+            }
+            else{
+                std::cout<<"Settlement already exist"<<std::endl;
+                error("Settlement already exist");
+               
+            }
     }
-} 
+    else{
+         std::cout<<"Settlement already exist"<<std::endl;
+         error("Settlement already exist");
+        
+    }
+
+    
+}
+
+// void AddSettlement::act(Simulation& simulation) 
+// { 
+//     try{
+//          Settlement* nS = new Settlement(settlementName,settlementType);
+//          simulation.addSettlement(nS);
+//     }
+//     catch(const std::runtime_error& e){
+//         std::cout<<"im in catch"<<std::endl;
+//           error("Settlement already exist");
+//           std::cout<<"Settlement already exist"<<std::endl;
+//     }
+           
+    
+// }
+
 
 AddSettlement* AddSettlement:: clone() const
 {

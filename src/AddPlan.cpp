@@ -10,56 +10,59 @@ AddPlan::AddPlan(const string& settlementName, const string& selectionPolicy) : 
 
 void AddPlan::act(Simulation& simulation)
 {
-    SelectionPolicy* policy = getPolicyInstancePointer(selectionPolicy); // DONT DELETE THIS, USED BY THE simulation.addPlan
-    if (policy == nullptr || !simulation.isSettlementExists(settlementName)) 
-    {
-        error("Cannot create this plan");      
-    }
-    else
-    {
+     // -------- validatoin of input ----------//
+     if(simulation.isValidPolicy(selectionPolicy)&& simulation.isSettlementExists(settlementName)){
+        // -------- perform the action -----------//
+        SelectionPolicy* policy = simulation.getPolicyInstancePointer(selectionPolicy);
         simulation.addPlan(simulation.getSettlement(settlementName), policy);
         complete();
-    }
+      
+     }
+     else{
+        error("Cannot create this plan"); 
+       
+        std::cout<<"Cannot create this plan"<<std::endl;   
+     }    
+
 }
 
 const string AddPlan::toString() const
 {
     string stat;
-    switch(getStatus())
-    {
-        case ActionStatus::COMPLETED : stat = "COMPLETED";
-        case ActionStatus::ERROR : stat = "ERROR" + getErrorMsg();
-        default: stat = "PENDING";
+    if(this -> getStatus() == ActionStatus::COMPLETED){
+         return "AddPlan : " + settlementName + " " + selectionPolicy + " - COMPLETED  " ; 
     }
-    return "AddPlan : " + settlementName + selectionPolicy + " - " + stat; 
+    return getErrorMsg();
+   
 }
+
 
 AddPlan* AddPlan::clone() const
 {
     return new AddPlan(*this); 
 }
 
-// WE ADDED
-SelectionPolicy* AddPlan::getPolicyInstancePointer(const string& threeLetters)
-{
-    if(threeLetters == "nve")
-    {
-        return new NaiveSelection();
-    }
-    else if (threeLetters == "eco")
-    {
-        return new EconomySelection();
-    }
-    else if (threeLetters == "env")
-    {
-        return new SustainabilitySelection();
-    }
-    else if (threeLetters == "bal")
-    { 
-        return new BalancedSelection(0,0,0);
-    }
-    else
-    {
-        return nullptr;
-    }
-}
+// // WE ADDED
+// SelectionPolicy* AddPlan::getPolicyInstancePointer(const string& threeLetters)
+// {
+//     if(threeLetters == "nve")
+//     {
+//         return new NaiveSelection();
+//     }
+//     else if (threeLetters == "eco")
+//     {
+//         return new EconomySelection();
+//     }
+//     else if (threeLetters == "env")
+//     {
+//         return new SustainabilitySelection();
+//     }
+//     else if (threeLetters == "bal")
+//     { 
+//         return new BalancedSelection(0,0,0);
+//     }
+//     else
+//     {
+//         return nullptr;
+//     }
+// }

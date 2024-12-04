@@ -13,16 +13,27 @@ SettlementType Settlement:: getType() const
     return type;
 }
 
-const string Settlement:: toString() const
-{
-    switch(type)
-    {
-    case SettlementType ::VILLAGE : return name + " : VILLAGE" ;       
-    case SettlementType ::METROPOLIS : return name + " : METROPOLIS" ;
-    case SettlementType ::CITY : return  name + " : CITY" ;
-     default: return " ";
-    }  
+const string Settlement::toString() const {
+    // Map SettlementType enum to string
+    string typeString;
+    switch (type) {
+        case SettlementType::VILLAGE:
+            typeString = "Village";
+            break;
+        case SettlementType::CITY:
+            typeString = "City";
+            break;
+        case SettlementType::METROPOLIS:
+            typeString = "Metropolis";
+            break;
+        default:
+            typeString = "Unknown";
+    }
+
+    // Return a descriptive string
+    return "Settlement Name: " + name + ", Type: " + typeString;
 }
+
 
 Settlement* Settlement::clone() const
 {

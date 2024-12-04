@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <iostream>
 //#include "Simulation.h"
 class Simulation; // New
 using std::string; // New
@@ -28,6 +29,7 @@ class BaseAction{
         void complete();
         void error(string errorMsg);
         const string &getErrorMsg() const;
+        
 
     private:
         string errorMsg;

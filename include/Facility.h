@@ -26,6 +26,10 @@ class FacilityType {
         int getEnvironmentScore() const;
         int getEconomyScore() const;
         FacilityCategory getCategory() const;
+
+        //we added
+         string strGetCategory() const;
+         
         
     protected:
         const string name;

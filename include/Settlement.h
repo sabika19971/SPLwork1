@@ -1,15 +1,21 @@
 #pragma once
 #include <string>
 #include <vector>
+#include<iostream>
 using std::string;
 using std::vector;
 
 class Facility;
 
+// enum class SettlementType {
+//     VILLAGE =1,
+//     CITY=2,
+//     METROPOLIS=3,
+// };
 enum class SettlementType {
-    VILLAGE =1,
-    CITY=2,
-    METROPOLIS=3,
+    VILLAGE ,
+    CITY,
+    METROPOLIS,
 };
 
 class Settlement {

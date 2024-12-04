@@ -49,17 +49,11 @@ Facility* Facility::clone() const
 const string Facility:: toString() const
 {
   std::stringstream ss;
-  string strcategory;
-  switch(getCategory())
-    {
-      case FacilityCategory ::ECONOMY: strcategory = "Economy" ;       
-      case FacilityCategory :: ENVIRONMENT  : strcategory = "ENVIRONMENT" ;
-      case FacilityCategory :: LIFE_QUALITY  : strcategory = "LIFE_QUALITY" ;
-    }
+  
     ss << "Facility Information:\n"
     << "Name: " << name << "\n"
     << "Settlement Name: " << settlementName << "\n"
-    << "Category: " << strcategory << "\n"
+    << "Category: " << this->strGetCategory() << "\n"
     << "Price: " << price << "\n"
     << "Life Quality Score: " << lifeQuality_score << "\n"
     << "Economy Score: " << economy_score << "\n"
