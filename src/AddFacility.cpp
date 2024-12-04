@@ -61,20 +61,20 @@ const string AddFacility:: toString() const
     {
         return getErrorMsg();
     }
-
     std::ostringstream addF;
     addF << "AddFacility : with Facility name:"+ facilityName + " Facility Category: ";
-    if(facilityCategory == FacilityCategory::ECONOMY){
-
-   addF<< "ECONOMY ";
-  }
-  else if (facilityCategory == FacilityCategory::ENVIRONMENT){
-      addF<<"ENVIRONMENT ";
-  }
-  else{
-   addF<< "LIFE_QUALITY ";
-  }
-    
+    if(facilityCategory == FacilityCategory::ECONOMY)
+    {
+        addF<< "ECONOMY ";
+    }
+    else if (facilityCategory == FacilityCategory::ENVIRONMENT)
+    {
+        addF<<"ENVIRONMENT ";
+    }
+    else
+    {
+        addF<< "LIFE_QUALITY ";
+    }     
     addF << "Price | L | ECO | ENV " << price << "|" <<lifeQualityScore << "|"<<economyScore << "|" << environmentScore << " COMPLETE";
     return addF.str();
 }

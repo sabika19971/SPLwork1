@@ -9,21 +9,6 @@
 using std::string;
 using std::vector;
 
-//#include "Action.h" // New
-/*
-class BaseAction;
-class SimulateStep;
-class SelectionPolicy;
-class AddPlan;
-class AddSettlement;
-class AddFacility;
-class PrintPlanStatus;
-class ChangePlanPolicy;
-class PrintActionsLog;
-class Close;
-class BackupSimulation;
-class RestoreSimulation;
-*/
 
 class Simulation {
     public:

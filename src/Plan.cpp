@@ -2,16 +2,16 @@
 
 Plan :: Plan(const int planId, const Settlement& settlement, SelectionPolicy* selectionPolicy, const vector<FacilityType>& facilityOptions):
                 plan_id(planId), settlement(settlement), selectionPolicy(selectionPolicy), status(PlanStatus :: AVALIABLE),facilities(), underConstruction(), facilityOptions(facilityOptions), 
-                life_quality_score(0), economy_score(0), environment_score(0),construction_limit(static_cast<int>(settlement.getType())),
+                life_quality_score(0), economy_score(0), environment_score(0),construction_limit(static_cast<int>(settlement.getType()) + 1), // ADDED 1
                 policyType(selectionPolicy -> toString())
 {}
 
 // COPY CONSTRUCTOR
 Plan::Plan(const Plan& other) : plan_id(other.plan_id),  settlement(other.settlement),selectionPolicy((other.selectionPolicy) -> clone()), status(other.status),
-                               facilities(),underConstruction(),facilityOptions(other.facilityOptions), 
+                                facilities(),underConstruction(),facilityOptions(other.facilityOptions), // gives him the same "catalog" 
                                 life_quality_score(other.life_quality_score), economy_score(other.economy_score), environment_score(other.environment_score),
-                                 construction_limit(other.construction_limit), policyType(other.policyType)
-                                // gives him the same "catalog"
+                                construction_limit(other.construction_limit), policyType(other.policyType)
+                                
 {
     for (Facility* f : other.facilities)
     {
@@ -73,26 +73,33 @@ void Plan :: step()
 {
     if (status == PlanStatus ::AVALIABLE)
     {
-        int typeValue( static_cast<int>(settlement.getType()) );
         while(underConstruction.size() < construction_limit )
         {
             const FacilityType& facil =  selectionPolicy -> selectFacility(facilityOptions);
             Facility* f = new Facility(facil, settlement.getName());
-            addFacility(f); // CODE MOVED TO addFacility()
-            typeValue = typeValue -1;
+            addFacility(f); 
         }
+        status  = PlanStatus :: BUSY; 
     }
-
-    for (size_t i(0); i < underConstruction.size(); ++i)
+   
+    for (size_t i = 0; i < underConstruction.size(); )  // Notice we don't increment i manually here
     {
-        if(underConstruction[i]->step()== FacilityStatus :: OPERATIONAL)
+        if (underConstruction[i] -> step() == FacilityStatus::OPERATIONAL)
         {
             facilities.push_back(underConstruction[i]);
-            underConstruction.erase(underConstruction.begin()+i);
+            life_quality_score += underConstruction[i] -> getLifeQualityScore();
+            economy_score += underConstruction[i] -> getEconomyScore();
+            environment_score += underConstruction[i] -> getEnvironmentScore();
+            underConstruction.erase(underConstruction.begin() + i);
+            // Don't increment i since we want to check the next element which moved into the current position
+        }
+        else
+        {
+            i++;  // Increment i only when we don't erase
         }
     }
 
-    if(underConstruction.size() == construction_limit+1) 
+    if(underConstruction.size() == construction_limit) 
     {
         status = PlanStatus :: BUSY;
     }
@@ -155,7 +162,7 @@ const string Plan :: toString() const
     }
 
     // --------- selectionPolicy --------- //
-    oss << "SelectionPolicy: " << selectionPolicy->toString()<<"\n";
+    oss << "SelectionPolicy: " << selectionPolicy -> toString()<<"\n";
     
     // -------- print life,economy,enviroment _ score ----------- //
     oss << "Life Quality Score: " << life_quality_score << "\n";
@@ -163,7 +170,9 @@ const string Plan :: toString() const
     oss << "Environment Score: " << environment_score << "\n";
 
     // --------- print facilities on OPERATION --------- //
+    /*
     oss << "Facilities:\n";
+    
     for (const auto* facility : facilities) 
     {
         if (facility) 
@@ -171,7 +180,7 @@ const string Plan :: toString() const
             oss << "  - " << facility->toString() << "\n";
         }
     }
-
+    
     // --------- print facilities UNDERCONSTRUCTION --------- //
     oss << "Facilities UNDERCONSTRUCTION:\n";
     for (const auto* facility : underConstruction) 
@@ -181,6 +190,7 @@ const string Plan :: toString() const
             oss << "  - " << facility->toString() << "\n";
         }
     }
+    */
     return oss.str();  
 }
 

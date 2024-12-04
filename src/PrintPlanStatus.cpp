@@ -6,14 +6,14 @@ PrintPlanStatus:: PrintPlanStatus(int planId) : planId(planId){}
 
 void  PrintPlanStatus ::act (Simulation& simulation) 
 {
-    Plan p (simulation.getPlan(planId));
+    Plan& p = simulation.getPlan(planId); 
     if(p.getPlanId() == -1) // default instance
     {
         error("Plan doesn't exist");
     }
     else
-    {
-        p.toString();
+    {;
+        std::cout << p.toString() << std::endl;
         complete();
     }
 }

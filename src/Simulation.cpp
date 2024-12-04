@@ -39,33 +39,30 @@ Simulation::Simulation(const string& configFilePath) : planCounter(0), actionsLo
         }
     }
 
-        std::cout<<" setelments are :"<<std::endl;
-for (Settlement* s : settlements)
+    std::cout<<" setelments are :"<<std::endl;
+    for (Settlement* s : settlements)
     {
         std::cout<<s ->toString()<<std::endl;
     }
 
- std::cout<<" facilities options are :"<<std::endl;
-for (int i(0); i<facilitiesOptions.size(); i++){
-    std::cout << "facility name:"+ facilitiesOptions[i].getName()<<std::endl;
-    std::cout << "facility cost:"<< facilitiesOptions[i].getCost() <<std::endl;
-    std::cout << "facility economy_score:"<< facilitiesOptions[i].getEconomyScore() <<std::endl;
-    std::cout << "facility enviroment_score:"<< facilitiesOptions[i].getEnvironmentScore() <<std::endl;
-    std::cout << "facility quality life score:"<<facilitiesOptions[i].getLifeQualityScore() <<std::endl;
-    std:: cout <<"facility category: " << facilitiesOptions[i].strGetCategory()<<std::endl;
-    std::cout << "-----------------------------------------------------------------" <<std::endl; 
-}
+    std::cout<<" facilities options are :"<<std::endl;
+    for (int i(0); i<facilitiesOptions.size(); i++)
+    {
+        std::cout << "facility name:"+ facilitiesOptions[i].getName()<<std::endl;
+        std::cout << "facility cost:"<< facilitiesOptions[i].getCost() <<std::endl;
+        std::cout << "facility economy_score:"<< facilitiesOptions[i].getEconomyScore() <<std::endl;
+        std::cout << "facility enviroment_score:"<< facilitiesOptions[i].getEnvironmentScore() <<std::endl;
+        std::cout << "facility quality life score:"<<facilitiesOptions[i].getLifeQualityScore() <<std::endl;
+        std:: cout <<"facility category: " << facilitiesOptions[i].strGetCategory()<<std::endl;
+        std::cout << "-----------------------------------------------------------------" <<std::endl; 
+    }
 
-std::cout<<" plans are :"<<std::endl;
-for(int(i);i<plans.size();i++)
+    std::cout<<" plans are :"<<std::endl;
+    for(int(i);i<plans.size();i++)
     {
         std::cout<<plans[i].toString()<<std::endl;
         
-    }
-
- 
- 
-   
+    }  
 }
 
 // COPY CONSTRUCTOR
@@ -150,8 +147,7 @@ Simulation& Simulation::operator=(const Simulation& other) // OTHER = RUNNING SI
         {
             (this -> facilitiesOptions).push_back(FacilityType(f)); // USES FacilityType default copy constructor
         }
-    }
-    
+    }  
     return *this;
 }
 
@@ -180,18 +176,17 @@ Simulation::~Simulation()
 
 
 
-void Simulation::addPlan(const Settlement& settlement, SelectionPolicy* selectionPolicy){
-    
-        plans.emplace_back(planCounter, settlement, selectionPolicy, facilitiesOptions);
-        planCounter++;
-        std::cout << "plans are " << std::endl;
-        for(int i(0);i<plans.size();i++){
-            std::cout<<plans[i].toString()<<std::endl;
-            std::cout <<"---------------------------" << std::endl;
-        }
+void Simulation::addPlan(const Settlement& settlement, SelectionPolicy* selectionPolicy)
+{  
+    plans.emplace_back(planCounter, settlement, selectionPolicy, facilitiesOptions);
+    planCounter++;
+    std::cout << "plans are " << std::endl;
+    for(int i(0);i<plans.size();i++)
+    {
+        std::cout<<plans[i].toString()<<std::endl;
+        std::cout <<"---------------------------" << std::endl;
+    }
 }
-
-
 
 void Simulation::addAction(BaseAction* action)
 {
@@ -205,8 +200,8 @@ bool Simulation::addSettlement(Settlement* settlement)
        return false;
     }
     settlements.push_back(settlement);
-     std::cout<<" setelments are :"<<std::endl;
-for (Settlement* s : settlements)
+    std::cout<<" setelments are :"<<std::endl;
+    for (Settlement* s : settlements)
     {
         std::cout<<s ->toString()<<std::endl;
     }
@@ -223,8 +218,9 @@ bool Simulation::addFacility(FacilityType facility)
         }
     }
     facilitiesOptions.push_back(facility);
- std::cout<<" facilities options are :"<<std::endl;
-for (int i(0); i<facilitiesOptions.size(); i++){
+    std::cout<<" facilities options are :"<<std::endl;
+    for (int i(0); i<facilitiesOptions.size(); i++)
+    {
     std::cout << "facility name:"+ facilitiesOptions[i].getName()<<std::endl;
     std::cout << "facility cost:"<< facilitiesOptions[i].getCost() <<std::endl;
     std::cout << "facility economy_score:"<< facilitiesOptions[i].getEconomyScore() <<std::endl;
@@ -232,8 +228,7 @@ for (int i(0); i<facilitiesOptions.size(); i++){
     std::cout << "facility quality life score:"<<facilitiesOptions[i].getLifeQualityScore() <<std::endl;
     std:: cout <<"facility category: " << facilitiesOptions[i].strGetCategory()<<std::endl;
     std::cout << "-----------------------------------------------------------------" <<std::endl; 
-}
-
+    }
     return true;
 }
 
@@ -249,9 +244,12 @@ bool Simulation::isSettlementExists(const string& settlementName)
     return false;
 }
 
-Settlement& Simulation::getSettlement(const string& settlementName) {
-    for (Settlement* sett : settlements) {
-        if (sett->getName() == settlementName) {
+Settlement& Simulation::getSettlement(const string& settlementName) 
+{
+    for (Settlement* sett : settlements) 
+    {
+        if (sett->getName() == settlementName) 
+        {
             return *sett;
         }
     }
@@ -260,7 +258,7 @@ Settlement& Simulation::getSettlement(const string& settlementName) {
 
 Plan& Simulation::getPlan(const int planID)
 {
-    if(planID >= plans.size())
+    if(planID >= plans.size() || planID < 0)
     {
         return plans[0]; // default instance
     }
@@ -279,7 +277,7 @@ void Simulation::start()
         std::getline (std::cin,userInput);
         vector<std::string> parsedInput = Auxiliary::parseArguments(userInput);
       
-        if (parsedInput[0] == "step") // need debug
+        if (parsedInput[0] == "step") 
         {
             preform = true;
             action = new SimulateStep(std::stoi(parsedInput[1]));
@@ -304,8 +302,8 @@ void Simulation::start()
         }
         else if (parsedInput[0] == "planStatus") //not working  need to debug 
         {
-            std::cout<<"hi"<<std::endl;
             action = new PrintPlanStatus(std::stoi(parsedInput[1]));
+            preform = true;
         }
         else if (parsedInput[0] == "changePolicy")
         {
@@ -329,19 +327,13 @@ void Simulation::start()
             action = new RestoreSimulation();
         }
         
-       
-            if(preform){
-              action -> act(*this);
+        if(preform)
+        {
+            action -> act(*this);
             addAction(action);
             action = nullptr;
             preform = false;   
-            }
-
-            
-       
-       
-        
-       //Auxiliary::execute(*this, parsedInput);
+        }  
     }
 }
 
@@ -360,7 +352,7 @@ const void Simulation:: printActionLog(){
 
 void Simulation::step()
 {
-    for (Plan plan : plans)
+    for (Plan& plan : plans)
     {
         plan.step();
     }

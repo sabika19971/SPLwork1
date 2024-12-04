@@ -23,10 +23,10 @@ const int Facility :: getTimeLeft() const
 
 FacilityStatus Facility:: step()
 {
-  timeLeft= timeLeft-1;
+  timeLeft--;
   if(timeLeft == 0)
   {
-      status= FacilityStatus :: OPERATIONAL;
+      status = FacilityStatus :: OPERATIONAL;
   }
   return status;
 }
