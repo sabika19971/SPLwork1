@@ -6,7 +6,25 @@ Plan :: Plan(const int planId, const Settlement& settlement, SelectionPolicy* se
                 policyType(selectionPolicy -> toString())
 {}
 
-// COPY CONSTRUCTOR
+// SECOND COPY CONSTRUCTOR
+Plan::Plan(const Plan& other, Settlement* sett) : plan_id(other.plan_id),  settlement(*sett),selectionPolicy((other.selectionPolicy) -> clone()), status(other.status),
+                                facilities(),underConstruction(),facilityOptions(other.facilityOptions), // gives him the same "catalog" 
+                                life_quality_score(other.life_quality_score), economy_score(other.economy_score), environment_score(other.environment_score),
+                                construction_limit(other.construction_limit), policyType(other.policyType)
+                                
+{
+    for (Facility* f : other.facilities)
+    {
+        (this -> facilities).push_back(f -> clone());
+    }
+
+    for (Facility* f : other.underConstruction)
+    {
+        (this -> underConstruction).push_back(f -> clone());
+    }
+}
+
+// first copy constructor
 Plan::Plan(const Plan& other) : plan_id(other.plan_id),  settlement(other.settlement),selectionPolicy((other.selectionPolicy) -> clone()), status(other.status),
                                 facilities(),underConstruction(),facilityOptions(other.facilityOptions), // gives him the same "catalog" 
                                 life_quality_score(other.life_quality_score), economy_score(other.economy_score), environment_score(other.environment_score),
@@ -41,7 +59,12 @@ Plan::~Plan()
 
     underConstruction.clear();
 
-    delete selectionPolicy; // NEW
+    delete selectionPolicy; 
+}
+
+string Plan::getSettlementName() const
+{
+    return settlement.getName();
 }
 
 const int Plan :: getlifeQualityScore() const
@@ -145,7 +168,7 @@ const string Plan :: toString() const
     oss << "Plan ID: " << plan_id << "\n";
 
     // ---------- print settelment name and type + selection policy ----- //
-    oss  << settlement.toString() << "\n";
+    oss  << settlement.toString() << "\n";    
     
     
     // ---------- print plan status ----------- //
@@ -164,7 +187,7 @@ const string Plan :: toString() const
     }
 
     // --------- selectionPolicy --------- //
-    oss << "SelectionPolicy: " << selectionPolicy -> toString()<<"\n";
+    oss << "SelectionPolicy: " << selectionPolicy -> toString()<<"\n"; 
     
     // -------- print life,economy,enviroment _ score ----------- //
     oss << "Life Quality Score: " << life_quality_score << "\n";

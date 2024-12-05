@@ -26,7 +26,7 @@ class Settlement {
         const string toString() const;
 
         // WE ADDED 
-        Settlement* clone() const;
+        Settlement* clone() const; // for pointers
 
         private:
             const string name;

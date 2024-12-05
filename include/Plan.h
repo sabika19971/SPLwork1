@@ -29,6 +29,8 @@ class Plan {
         const string getPolicyType() const;
         
         // WE ADDED
+        string getSettlementName() const;
+        Plan(const Plan& other, Settlement* sett);
 
         // Rule of 3
         Plan(const Plan& other);

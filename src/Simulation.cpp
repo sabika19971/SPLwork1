@@ -89,7 +89,7 @@ Simulation::Simulation(const Simulation& other) : isRunning(other.isRunning), pl
     // plans - vector<Plan> plans - DEEP
     for (Plan p : other.plans)
     {
-        (this -> plans).push_back(Plan(p)); // USES Plan copy constructor
+        (this -> plans).push_back(Plan(p, getSettlementPointer(p.getSettlementName()))); // USES Plan second copy constructor
     }
 
     // facilitiesOptions - vector<FacilityType> facilitiesOptions - DEEP
@@ -106,8 +106,8 @@ Simulation& Simulation::operator=(const Simulation& other) // OTHER = RUNNING SI
     if (this != &other)
     {
         (this -> isRunning) = other.isRunning;
-        (this -> planCounter) = other.planCounter;
-    
+        (this -> planCounter) = other.planCounter;   
+
         // DELETE POINTERS
         for (BaseAction* b : (this -> actionsLog)) 
         {
@@ -144,7 +144,7 @@ Simulation& Simulation::operator=(const Simulation& other) // OTHER = RUNNING SI
         // plans - vector<Plan> plans - DEEP
         for (Plan p : other.plans)
         {
-            (this -> plans).push_back(Plan(p)); // USES Plan copy constructor
+            (this -> plans).push_back(Plan(p, getSettlementPointer(p.getSettlementName()))); // USES Plan second copy constructor
         }
 
         // facilitiesOptions - vector<FacilityType> facilitiesOptions - DEEP
@@ -259,6 +259,18 @@ Settlement& Simulation::getSettlement(const string& settlementName)
         }
     }
     return defaultSettlement; // default instance
+}
+
+Settlement* Simulation::getSettlementPointer(const string& settlementName) 
+{
+    for (Settlement* sett : settlements) 
+    {
+        if (sett->getName() == settlementName) 
+        {
+            return sett;
+        }
+    }
+    return nullptr; // default instance
 }
 
 Plan& Simulation::getPlan(const int planID)

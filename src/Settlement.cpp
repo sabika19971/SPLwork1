@@ -28,6 +28,7 @@ const string Settlement::toString() const {
             break;
         default:
             typeString = "Unknown";
+            break;
     }
 
     // Return a descriptive string
