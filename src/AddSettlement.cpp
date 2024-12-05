@@ -8,43 +8,27 @@ AddSettlement::AddSettlement(const string& settlementName,SettlementType settlem
 void AddSettlement::act(Simulation& simulation) 
 { 
     // -------- validatoin of input ----------// 
-    if(!(simulation.isSettlementExists(settlementName))){
+    if(!(simulation.isSettlementExists(settlementName)))
+    {
         // --------- preforming the act ---------- //
-            Settlement* nS = new Settlement(settlementName,settlementType);
-            bool isAdded (simulation.addSettlement(nS));
-            if(isAdded){
-                complete();
-                
-            }
-            else{
-                std::cout<<"Settlement already exist"<<std::endl;
-                error("Settlement already exist");
-               
-            }
+        Settlement* nS = new Settlement(settlementName,settlementType);
+        bool isAdded (simulation.addSettlement(nS));
+        if(isAdded)
+        {
+            complete();     
+        }
+        else
+        {
+            std::cout<<"Settlement already exist"<<std::endl;
+            error("Settlement already exist");    
+        }
     }
-    else{
-         std::cout<<"Settlement already exist"<<std::endl;
-         error("Settlement already exist");
-        
+    else
+    {
+        std::cout<<"Settlement already exist"<<std::endl;
+        error("Settlement already exist");
     }
-
-    
 }
-
-// void AddSettlement::act(Simulation& simulation) 
-// { 
-//     try{
-//          Settlement* nS = new Settlement(settlementName,settlementType);
-//          simulation.addSettlement(nS);
-//     }
-//     catch(const std::runtime_error& e){
-//         std::cout<<"im in catch"<<std::endl;
-//           error("Settlement already exist");
-//           std::cout<<"Settlement already exist"<<std::endl;
-//     }
-           
-    
-// }
 
 
 AddSettlement* AddSettlement:: clone() const
@@ -65,9 +49,15 @@ const string AddSettlement :: toString() const
 
     switch(settlementType)
     {
-        case SettlementType:: CITY : addS << "CITY";
-        case SettlementType:: METROPOLIS : addS <<"METROPOLIS";
-        case SettlementType:: VILLAGE : addS << "VILLAGE";
+        case SettlementType:: CITY :
+            addS << "CITY";
+            break;
+        case SettlementType:: METROPOLIS : 
+            addS <<"METROPOLIS";
+            break;
+        case SettlementType:: VILLAGE : 
+            addS << "VILLAGE";
+            break;
         
     }
     addS << " COMPLETED"; 

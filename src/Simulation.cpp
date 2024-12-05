@@ -1,12 +1,14 @@
 #include "../include/Simulation.h"
 #include <fstream>
 #include <iostream>
+#include <climits> // for INT_MAX
 using std::string;
 using std::vector;
 
-Simulation::Simulation(const string& configFilePath) : planCounter(0), actionsLog(), plans(), settlements(), facilitiesOptions() 
-{
-   
+Simulation::Simulation(const string& configFilePath) : planCounter(0), actionsLog(), plans(), settlements(),
+    facilitiesOptions(), defaultSettlement ("DefaultSettlemenet", SettlementType::VILLAGE), 
+    defaultPlan(INT_MAX, defaultSettlement, new NaiveSelection(), facilitiesOptions) //maybe need to after options made
+{    
     planCounter = 0;
     std::ifstream file(configFilePath);
     string line;
@@ -38,7 +40,7 @@ Simulation::Simulation(const string& configFilePath) : planCounter(0), actionsLo
             planCounter++;
         }
     }
-
+    /*
     std::cout<<" setelments are :"<<std::endl;
     for (Settlement* s : settlements)
     {
@@ -63,11 +65,14 @@ Simulation::Simulation(const string& configFilePath) : planCounter(0), actionsLo
         std::cout<<plans[i].toString()<<std::endl;
         
     }  
+    */
 }
 
 // COPY CONSTRUCTOR
 Simulation::Simulation(const Simulation& other) : isRunning(other.isRunning), planCounter(other.planCounter),
-                                                actionsLog(), plans(), settlements(), facilitiesOptions() 
+                                                actionsLog(), plans(), settlements(), facilitiesOptions(), 
+    defaultSettlement (other.defaultSettlement), 
+    defaultPlan(other.defaultPlan)  
 {
     // actionLog - vector<BaseAction*> actionsLog - DEEP
     for (BaseAction* b : other.actionsLog) 
@@ -96,7 +101,7 @@ Simulation::Simulation(const Simulation& other) : isRunning(other.isRunning), pl
 }
 
 // OPERATOR= 
-Simulation& Simulation::operator=(const Simulation& other) // OTHER = RUNNING SIMULATION
+Simulation& Simulation::operator=(const Simulation& other) // OTHER = RUNNING SIMULATION, no need to mention defaults
 {
     if (this != &other)
     {
@@ -253,14 +258,14 @@ Settlement& Simulation::getSettlement(const string& settlementName)
             return *sett;
         }
     }
-    throw std::runtime_error("Settlement not found: " + settlementName);
+    return defaultSettlement; // default instance
 }
 
 Plan& Simulation::getPlan(const int planID)
 {
     if(planID >= plans.size() || planID < 0)
     {
-        return plans[0]; // default instance
+        return defaultPlan; // default instance
     }
     return plans[planID]; 
 }
@@ -277,54 +282,57 @@ void Simulation::start()
         std::getline (std::cin,userInput);
         vector<std::string> parsedInput = Auxiliary::parseArguments(userInput);
       
-        if (parsedInput[0] == "step") 
+        if (parsedInput[0] == "step") // WORKING (NEED TO CHECK IF CHOOSING FACILITIES CORRECTLY)
         {
             preform = true;
             action = new SimulateStep(std::stoi(parsedInput[1]));
         }
-        else if (parsedInput[0] == "plan" )
-        {
-               preform = true;
-               action = new AddPlan(parsedInput[1], parsedInput[2]);    
-        }
-        else if (parsedInput[0] == "settlement")
-        { 
-                 preform = true;
-                 action = new AddSettlement(parsedInput[1], static_cast<SettlementType>(std::stoi(parsedInput[2])));  
-        }
-        else if (parsedInput[0] == "facility")
+        else if (parsedInput[0] == "plan" ) // WORKING
         {
             preform = true;
-          
+            action = new AddPlan(parsedInput[1], parsedInput[2]);    
+        }
+        else if (parsedInput[0] == "settlement") // WORKING
+        { 
+            preform = true;
+            action = new AddSettlement(parsedInput[1], static_cast<SettlementType>(std::stoi(parsedInput[2])));  
+        }
+        else if (parsedInput[0] == "facility") // WORKING
+        {
+            preform = true;
             action = new AddFacility(parsedInput[1], static_cast<FacilityCategory>(std::stoi(parsedInput[2])), 
                                     std::stoi(parsedInput[3]), std::stoi(parsedInput[4]), std::stoi(parsedInput[5]),
                                     std::stoi(parsedInput[6]));
         }
-        else if (parsedInput[0] == "planStatus") //not working  need to debug 
+        else if (parsedInput[0] == "planStatus") // WORKING (need to print different results)
         {
             action = new PrintPlanStatus(std::stoi(parsedInput[1]));
             preform = true;
         }
-        else if (parsedInput[0] == "changePolicy")
+        else if (parsedInput[0] == "changePolicy") // WORKING
         {
             action = new ChangePlanPolicy(std::stoi(parsedInput[1]), parsedInput[2]);
+            preform = true;
         }
-        else if (parsedInput[0] == "log")
+        else if (parsedInput[0] == "log") // WORKING (NEED TO CHANGE toString OF ACTIONS TO GIVEN FORMAT)
         {
             action = new PrintActionsLog();
+            preform = true;
         }
-        else if (parsedInput[0] == "close")
+        else if (parsedInput[0] == "close") // WORKING
         {
             preform=true;
             action = new Close();
         }
-        else if (parsedInput[0] == "backup")
+        else if (parsedInput[0] == "backup") // WORKING (NEED TO CHAKE MIKRE KATSE)
         {
             action = new BackupSimulation();
+            preform = true;
         }
-        else if (parsedInput[0] == "restore")
+        else if (parsedInput[0] == "restore") // WORKING (NEED TO CHAKE MIKRE KATSE)
         {
             action = new RestoreSimulation();
+            preform = true;
         }
         
         if(preform)

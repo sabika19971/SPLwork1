@@ -40,6 +40,8 @@ Plan::~Plan()
     facilities.clear();
 
     underConstruction.clear();
+
+    delete selectionPolicy; // NEW
 }
 
 const int Plan :: getlifeQualityScore() const
@@ -64,7 +66,7 @@ const int Plan :: getPlanId() const
 
 void Plan :: setSelectionPolicy(SelectionPolicy* selectionPolicy)
 {
-    delete selectionPolicy; 
+    delete (this -> selectionPolicy); 
     (this -> selectionPolicy) = selectionPolicy;
     policyType = selectionPolicy -> toString();
 }

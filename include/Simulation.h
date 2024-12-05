@@ -112,7 +112,9 @@ class Simulation {
         vector<Plan> plans;
         vector<Settlement*> settlements;
         vector<FacilityType> facilitiesOptions; // the catalog of facilities that can be bield 
-        //Plan* defaultPlan; ISNT USED
+        Settlement defaultSettlement;
+        Plan defaultPlan;
+         
 
 
 };

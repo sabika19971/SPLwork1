@@ -27,9 +27,14 @@ const string RestoreSimulation::toString() const
     string stat;
     switch(getStatus())
     {
-        case ActionStatus::COMPLETED : stat = "COMPLETED";
-        case ActionStatus::ERROR : stat = "ERROR";
+        case ActionStatus::COMPLETED :
+            stat = "COMPLETED";
+            break;
+        case ActionStatus::ERROR : 
+            stat = "ERROR";
+            break;
         default: stat = "PENDING";
+            break;
     }
     return "RestoreSimulation : " + stat; 
 }

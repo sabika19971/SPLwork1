@@ -28,9 +28,14 @@ const string BackupSimulation::toString() const
     string stat;
     switch(getStatus())
     {
-        case ActionStatus::COMPLETED : stat = "COMPLETED";
-        case ActionStatus::ERROR : stat = "ERROR";
+        case ActionStatus::COMPLETED :
+            stat = "COMPLETED";
+            break;
+        case ActionStatus::ERROR : 
+            stat = "ERROR";
+            break;
         default: stat = "PENDING";
+            break;
     }
     return "BackupSimulation : " + stat; 
 }
