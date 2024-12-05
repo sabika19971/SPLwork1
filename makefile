@@ -1,61 +1,36 @@
-# Define the name of the output binary
-TARGET = simulation
-
-# Define the source, include, and build directories
-SRC_DIR = src
-INC_DIR = include
-BUILD_DIR = build
-
-# Find all source files in the source directory
-SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
-# Define the object files to be created in the build directory
-OBJECTS = $(SOURCES:$(SRC_DIR)/%.cpp=$(BUILD_DIR)/%.o)
-
-# Compiler and flags
-CXX = g++
-CXXFLAGS = -std=c++11 -I$(INC_DIR) -Wall -g
-
-# Default target: build the executable
-all: $(TARGET)
-
-# Build the executable by linking all object files
-$(TARGET): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJECTS)
-
-# Rule to build object files from source files
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp | $(BUILD_DIR)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
-# Create the build directory if it doesn't exist
-$(BUILD_DIR):
-	mkdir -p $(BUILD_DIR)
-
-# Clean up all generated files
-clean:
-	rm -rf $(BUILD_DIR) $(TARGET)
-
 # Please implement your Makefile rules and targets below.
-#all: clean link
-#link: compile
-#		g++ -o bin/main bin/main.o bin/Auxiliary.o
+all: clean compile link
 
-#link: 
-#		g++ -g -Wall -Weffc++ -std=c++11 -Iinclude \
-		src/Auxiliary.cpp \
-		src/Settlement.cpp src/FacilityType.cpp src/Facility.cpp \
-		src/BalancedSelection.cpp src/EconomySelection.cpp src/NaiveSelection.cpp src/SustainabilitySelection.cpp \
-		src/Plan.cpp \
-		src/BaseAction.cpp src/AddFacility.cpp src/AddPlan.cpp src/AddSettlement.cpp \
-		src/BackupSimulation.cpp src/ChangePlanPolicy.cpp src/Close.cpp  \
-		src/PrintActionLog.cpp src/PrintPlanStatus.cpp src/RestoreSimulation.cpp src/SimulateStep.cpp  \
-		src/Simulation.cpp  src/main.cpp  -o my_program
-		
+compile:
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/Auxiliary.cpp -o bin/Auxiliary.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/Settlement.cpp -o bin/Settlement.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/FacilityType.cpp -o bin/FacilityType.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/Facility.cpp -o bin/Facility.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/BalancedSelection.cpp -o bin/BalancedSelection.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/EconomySelection.cpp -o bin/EconomySelection.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/NaiveSelection.cpp -o bin/NaiveSelection.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/SustainabilitySelection.cpp -o bin/SustainabilitySelection.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/Plan.cpp -o bin/Plan.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/BaseAction.cpp -o bin/BaseAction.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/AddFacility.cpp -o bin/AddFacility.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/AddPlan.cpp -o bin/AddPlan.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/AddSettlement.cpp -o bin/AddSettlement.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/BackupSimulation.cpp -o bin/BackupSimulation.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/ChangePlanPolicy.cpp -o bin/ChangePlanPolicy.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/Close.cpp -o bin/Close.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/PrintActionLog.cpp -o bin/PrintActionLog.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/PrintPlanStatus.cpp -o bin/PrintPlanStatus.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/RestoreSimulation.cpp -o bin/RestoreSimulation.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/SimulateStep.cpp -o bin/SimulateStep.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/Simulation.cpp -o bin/Simulation.o
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude -c src/main.cpp -o bin/main.o
 
-#compile: src/main.cpp src/Auxiliary.cpp include
-#		g++ -g -c -Wall -Weffc++ -std=c++11 -o bin/main.o src/main.cpp 
-#		g++ -g -c -Wall -Weffc++ -std=c++11 -o bin/Auxiliary.o src/Auxiliary.cpp
+link:
+	g++ -g -Wall -Weffc++ -std=c++11 -Iinclude bin/Auxiliary.o bin/Settlement.o bin/FacilityType.o bin/Facility.o \
+	bin/BalancedSelection.o bin/EconomySelection.o bin/NaiveSelection.o bin/SustainabilitySelection.o bin/Plan.o \
+	bin/BaseAction.o bin/AddFacility.o bin/AddPlan.o bin/AddSettlement.o bin/BackupSimulation.o bin/ChangePlanPolicy.o \
+	bin/Close.o bin/PrintActionLog.o bin/PrintPlanStatus.o bin/RestoreSimulation.o bin/SimulateStep.o bin/Simulation.o \
+	bin/main.o -o bin/simulation
 
-#clean: 
-#		rm -rf bin/*
-		
-# Customize this file to define how to build your project.
+clean:
+	rm -f bin/*.o bin/simulation	
