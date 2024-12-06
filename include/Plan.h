@@ -38,7 +38,7 @@ class Plan {
         Plan& operator=(const Plan& other) = delete; // DONT NEED TO IMPLEMENT
         
         // Addition for Rule of 5
-        //Plan(Plan&& other) = delete; // in the end
+        Plan(Plan&& other); 
         Plan& operator=(Plan&& other) = delete; // DONT NEED TO IMPLEMENT
 
     private:

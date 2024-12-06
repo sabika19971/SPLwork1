@@ -179,7 +179,69 @@ Simulation::~Simulation()
     facilitiesOptions.clear();
 }
 
+// MOVE COPY CONSTRUCTOR
+Simulation::Simulation(Simulation&& other): isRunning(other.isRunning), planCounter(other.planCounter),
+                                                actionsLog(), plans(), settlements(), facilitiesOptions(), 
+    defaultSettlement (other.defaultSettlement), 
+    defaultPlan(other.defaultPlan)  
+{
+    // actionLog - vector<BaseAction*> actionsLog - steal
+    (this -> actionsLog) = std::move(other.actionsLog);
+    
+    // settlements - vector<Settlement*> settlements - steal
+    (this -> settlements) = std::move(other.settlements);
 
+    // plans - vector<Plan> plans - steal
+    (this -> plans) = std::move(other.plans);
+
+    // facilitiesOptions - vector<FacilityType> facilitiesOptions - steal
+    (this -> facilitiesOptions) = std::move(other.facilitiesOptions);
+    
+}
+
+// MOVE OPERATOR= METHOD
+Simulation& Simulation::operator=(Simulation&& other)
+{
+    if (this != &other)
+    {
+        (this -> isRunning) = other.isRunning;
+        (this -> planCounter) = other.planCounter;   
+
+        // DELETE POINTERS
+        for (BaseAction* b : (this -> actionsLog)) 
+        {
+            delete b;
+        }
+
+        for (Settlement* s : (this -> settlements))
+        {
+            delete s;
+        }
+
+        // DELETE VECTOR NODES
+        (this -> actionsLog).clear();
+
+        (this -> settlements).clear();
+        
+        (this -> plans).clear();
+
+        (this -> facilitiesOptions).clear();
+
+        // steal other VECTORS and clear them automatically
+        // actionLog - vector<BaseAction*> actionsLog - steal
+        (this -> actionsLog) = std::move(other.actionsLog);
+        
+        // settlements - vector<Settlement*> settlements - steal
+        (this -> settlements) = std::move(other.settlements);
+
+        // plans - vector<Plan> plans - steal
+        (this -> plans) = std::move(other.plans);
+
+        // facilitiesOptions - vector<FacilityType> facilitiesOptions - steal
+        (this -> facilitiesOptions) = std::move(other.facilitiesOptions);
+    }  
+    return *this;
+}
 
 void Simulation::addPlan(const Settlement& settlement, SelectionPolicy* selectionPolicy)
 {  

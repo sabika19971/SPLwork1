@@ -62,6 +62,18 @@ Plan::~Plan()
     delete selectionPolicy; 
 }
 
+// MOVE first COPY CONSTRUCTOR
+Plan::Plan(Plan&& other): plan_id(other.plan_id),  settlement(other.settlement),selectionPolicy((other.selectionPolicy) -> clone()), status(other.status),
+                        facilities(),underConstruction(),facilityOptions(other.facilityOptions), // gives him the same "catalog" 
+                        life_quality_score(other.life_quality_score), economy_score(other.economy_score), environment_score(other.environment_score),
+                        construction_limit(other.construction_limit), policyType(other.policyType)
+                                
+{
+    facilities = std::move(other.facilities);
+
+    underConstruction = std::move(other.underConstruction);
+}
+
 string Plan::getSettlementName() const
 {
     return settlement.getName();
