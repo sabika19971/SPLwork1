@@ -8,12 +8,15 @@ void RestoreSimulation::act(Simulation& simulation)
 {
     if (backup != nullptr)
     {
+        std::cout << "im in the not null" << std:: endl;
         simulation = *backup; 
         complete();
     }
     else
     {
+        std::cout <<"No backup available" << std::endl;
         error("No backup available");
+
     }
 }
 
@@ -24,17 +27,16 @@ RestoreSimulation* RestoreSimulation::clone() const
 
 const string RestoreSimulation::toString() const
 {
-    string stat;
-    switch(getStatus())
+    std::ostringstream addS;
+    addS << "restore ";
+
+    if(getStatus() == ActionStatus:: ERROR)
     {
-        case ActionStatus::COMPLETED :
-            stat = "COMPLETED";
-            break;
-        case ActionStatus::ERROR : 
-            stat = "ERROR";
-            break;
-        default: stat = "PENDING";
-            break;
+       addS <<" ERROR";
     }
-    return "RestoreSimulation : " + stat; 
+    else{
+       addS << " COMPLETED";
+    }
+    
+    return addS.str();
 }

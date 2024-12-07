@@ -27,7 +27,15 @@ PrintPlanStatus* PrintPlanStatus:: clone() const
 
 const string PrintPlanStatus:: toString() const 
 {
-    return "I have printed Plan: " + planId;
+    std::ostringstream addS;
+    addS << "planStatus "<< planId;
+
+    if(getStatus() == ActionStatus:: ERROR)
+    {
+       addS <<" ERROR";
+    }
+    addS << " COMPLETED";
+    return addS.str();
 }
 
 

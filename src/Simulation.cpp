@@ -5,7 +5,7 @@
 using std::string;
 using std::vector;
 
-Simulation::Simulation(const string& configFilePath) : planCounter(0), actionsLog(), plans(), settlements(),
+Simulation::Simulation(const string& configFilePath) :isRunning(false), planCounter(0), actionsLog(), plans(), settlements(),
     facilitiesOptions(), defaultSettlement ("DefaultSettlemenet", SettlementType::VILLAGE), 
     defaultPlan(INT_MAX, defaultSettlement, new NaiveSelection(), facilitiesOptions) //maybe need to after options made
 {    
@@ -186,7 +186,7 @@ void Simulation::addPlan(const Settlement& settlement, SelectionPolicy* selectio
     plans.emplace_back(planCounter, settlement, selectionPolicy, facilitiesOptions);
     planCounter++;
     std::cout << "plans are " << std::endl;
-    for(int i(0);i<plans.size();i++)
+    for(size_t i(0);i<plans.size();i++)
     {
         std::cout<<plans[i].toString()<<std::endl;
         std::cout <<"---------------------------" << std::endl;
@@ -224,7 +224,7 @@ bool Simulation::addFacility(FacilityType facility)
     }
     facilitiesOptions.push_back(facility);
     std::cout<<" facilities options are :"<<std::endl;
-    for (int i(0); i<facilitiesOptions.size(); i++)
+    for (size_t i(0); i<facilitiesOptions.size(); i++)
     {
     std::cout << "facility name:"+ facilitiesOptions[i].getName()<<std::endl;
     std::cout << "facility cost:"<< facilitiesOptions[i].getCost() <<std::endl;
@@ -275,7 +275,7 @@ Settlement* Simulation::getSettlementPointer(const string& settlementName)
 
 Plan& Simulation::getPlan(const int planID)
 {
-    if(planID >= plans.size() || planID < 0)
+    if(static_cast<size_t>(planID) >= plans.size() || planID < 0)
     {
         return defaultPlan; // default instance
     }
@@ -294,17 +294,17 @@ void Simulation::start()
         std::getline (std::cin,userInput);
         vector<std::string> parsedInput = Auxiliary::parseArguments(userInput);
       
-        if (parsedInput[0] == "step") // WORKING (NEED TO CHECK IF CHOOSING FACILITIES CORRECTLY)
+        if (parsedInput[0] == "step") // WORKING. 
         {
             preform = true;
             action = new SimulateStep(std::stoi(parsedInput[1]));
         }
-        else if (parsedInput[0] == "plan" ) // WORKING
+        else if (parsedInput[0] == "plan" ) // WORKING.
         {
             preform = true;
             action = new AddPlan(parsedInput[1], parsedInput[2]);    
         }
-        else if (parsedInput[0] == "settlement") // WORKING
+        else if (parsedInput[0] == "settlement") // WORKING.
         { 
             preform = true;
             action = new AddSettlement(parsedInput[1], static_cast<SettlementType>(std::stoi(parsedInput[2])));  
@@ -316,7 +316,7 @@ void Simulation::start()
                                     std::stoi(parsedInput[3]), std::stoi(parsedInput[4]), std::stoi(parsedInput[5]),
                                     std::stoi(parsedInput[6]));
         }
-        else if (parsedInput[0] == "planStatus") // WORKING (need to print different results)
+        else if (parsedInput[0] == "planStatus") // WORKING
         {
             action = new PrintPlanStatus(std::stoi(parsedInput[1]));
             preform = true;
@@ -421,11 +421,15 @@ bool Simulation::isValidPolicy (const string& policyName){
     return false;
 }
 
-bool Simulation :: isFacilityExsist(const string& facilityName){
-    for(int i(0);i< facilitiesOptions.size(); i++){
-        if(facilitiesOptions[i].getName() ==facilityName ){
+bool Simulation :: isFacilityExsist(const string& facilityName)
+{
+    for(size_t i(0);i< facilitiesOptions.size(); i++)
+    {
+        if(facilitiesOptions[i].getName() ==facilityName )
+        {
             return false;
         }
-        return true;
+      
     }
+      return true;
 }

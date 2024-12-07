@@ -10,7 +10,7 @@ const FacilityType& BalancedSelection::selectFacility(const vector<FacilityType>
     int bestFacilityIndex = 0;
     int bestFacilityScore = distance(facilitiesOptions[0]);
 
-    for(int i = 1; i < facilitiesOptions.size(); i++) 
+    for(size_t i = 1; i < facilitiesOptions.size(); i++) 
     {
         int dist = distance(facilitiesOptions[i]); 
         if(dist < bestFacilityScore)
@@ -19,6 +19,7 @@ const FacilityType& BalancedSelection::selectFacility(const vector<FacilityType>
             bestFacilityIndex = i;
         }     
     }
+    
     return facilitiesOptions[bestFacilityIndex];
 }
 
@@ -41,3 +42,13 @@ BalancedSelection* BalancedSelection::clone() const
 {
     return new BalancedSelection(*this);
 }
+
+void BalancedSelection :: setParam(const int ULifeScore, const int UEconomyScore, const int UEnvScore)
+{
+    LifeQualityScore = ULifeScore;
+    EconomyScore = UEconomyScore;
+    EnvironmentScore =UEnvScore;
+}
+
+
+

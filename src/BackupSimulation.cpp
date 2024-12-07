@@ -25,17 +25,13 @@ BackupSimulation* BackupSimulation::clone() const
 
 const string BackupSimulation::toString() const
 {
-    string stat;
-    switch(getStatus())
+    std::ostringstream addS;
+    addS << "backup ";
+
+    if(getStatus() == ActionStatus:: ERROR)
     {
-        case ActionStatus::COMPLETED :
-            stat = "COMPLETED";
-            break;
-        case ActionStatus::ERROR : 
-            stat = "ERROR";
-            break;
-        default: stat = "PENDING";
-            break;
+       addS <<" ERROR";
     }
-    return "BackupSimulation : " + stat; 
+    addS << " COMPLETED";
+    return addS.str();
 }

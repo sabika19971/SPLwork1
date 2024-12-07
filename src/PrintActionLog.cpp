@@ -16,5 +16,13 @@ PrintActionsLog* PrintActionsLog:: clone() const
 
 const string PrintActionsLog :: toString() const 
 {
-        return "Action Print Log";
+    std::ostringstream addS;
+    addS << "log ";
+
+    if(getStatus() == ActionStatus:: ERROR)
+    {
+       addS <<" ERROR";
+    }
+    addS << " COMPLETED";
+    return addS.str();
 }

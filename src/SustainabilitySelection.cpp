@@ -22,3 +22,8 @@ SustainabilitySelection* SustainabilitySelection::clone() const
 {
     return new SustainabilitySelection(*this);
 }
+
+void SustainabilitySelection:: setParam (const int UlifeScore, const int UEconomyScore, const int UEnvScore)
+{
+    
+}

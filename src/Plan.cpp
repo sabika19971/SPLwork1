@@ -89,9 +89,45 @@ const int Plan :: getPlanId() const
 
 void Plan :: setSelectionPolicy(SelectionPolicy* selectionPolicy)
 {
+    // do not earase prints-  is not debug print - this is the output for the action according to instructions.
+    std:: cout<< plan_id << std::endl;
+    if(selectionPolicy->toString() == "bal")
+    {
+        std::cout << "previousPolicy: Balance" <<std::endl;
+    }
+    else if(selectionPolicy->toString() == "nve")
+    {
+        std::cout << "previousPolicy: Naive" <<std::endl;
+    }
+    else if(selectionPolicy->toString()=="eco")
+    {
+        std::cout << "previousPolicy: Economy" <<std::endl;
+    }
+    else
+    {
+        std::cout << "previousPolicy: Enviroment" <<std::endl;
+    }
+    // delete the previous selection policy.
     delete (this -> selectionPolicy); 
+    
+    // set the curr selection policy
     (this -> selectionPolicy) = selectionPolicy;
-    policyType = selectionPolicy -> toString();
+     if(selectionPolicy->toString() == "bal")
+    {
+        std::cout << "newPolicy: Balance" <<std::endl;
+    }
+    else if(selectionPolicy->toString() == "nve")
+    {
+        std::cout << "newPolicy: Naive" <<std::endl;
+    }
+    else if(selectionPolicy->toString()=="eco")
+    {
+        std::cout << "newPolicy: Economy" <<std::endl;
+    }
+    else
+    {
+        std::cout << "newPolicy: Enviroment" <<std::endl;
+    }
 }
 
 void Plan :: step()
@@ -116,6 +152,8 @@ void Plan :: step()
             economy_score += underConstruction[i] -> getEconomyScore();
             environment_score += underConstruction[i] -> getEnvironmentScore();
             underConstruction.erase(underConstruction.begin() + i);
+            selectionPolicy->setParam(life_quality_score,economy_score,environment_score); // update the policy pram according to the plan pram.
+            
             // Don't increment i since we want to check the next element which moved into the current position
         }
         else
@@ -165,10 +203,10 @@ const string Plan :: toString() const
 {
     std::ostringstream oss;
     // ---------- print ID -------//
-    oss << "Plan ID: " << plan_id << "\n";
+    oss << "Plan ID< " << plan_id << ">"<<"\n";
 
     // ---------- print settelment name and type + selection policy ----- //
-    oss  << settlement.toString() << "\n";    
+    oss  << "SettlementName <"<< settlement.getName() << ">"<<"\n";    
     
     
     // ---------- print plan status ----------- //
@@ -176,12 +214,12 @@ const string Plan :: toString() const
     {
         case PlanStatus :: AVALIABLE:
         {
-            oss << "Status: " << "AVALIABLE" << "\n"; 
+            oss << "PlanStatus: " << "AVALIABLE" << ">"<<"\n"; 
             break;
         }
         case PlanStatus :: BUSY : 
         {
-            oss << "Status: " << "BUSY" << "\n"; 
+            oss << "PlanStatus< " << "BUSY" << ">"<<"\n"; 
             break;
         }  
     }
@@ -190,32 +228,35 @@ const string Plan :: toString() const
     oss << "SelectionPolicy: " << selectionPolicy -> toString()<<"\n"; 
     
     // -------- print life,economy,enviroment _ score ----------- //
-    oss << "Life Quality Score: " << life_quality_score << "\n";
-    oss << "Economy Score: " << economy_score << "\n";
-    oss << "Environment Score: " << environment_score << "\n";
+    oss << "LifeQualityScore< " << life_quality_score << ">"<<"\n";
+    oss << "EconomyScore<" << economy_score << ">"<<"\n";
+    oss << "EnvironmentScore<" << environment_score << ">"<<"\n";
 
     // --------- print facilities on OPERATION --------- //
-    /*
-    oss << "Facilities:\n";
+    oss << "-------------------------------------------------------\n";
+    oss << "Opertional Facilities:\n";
     
     for (const auto* facility : facilities) 
     {
         if (facility) 
         {
-            oss << "  - " << facility->toString() << "\n";
+            oss << "FacilityName< " << facility->getName() << ">"<<"\n";
+            oss << "FacilityStatus<" << facility->strGetStatus() << ">"<<"\n";
         }
     }
     
     // --------- print facilities UNDERCONSTRUCTION --------- //
+     oss << "------------------------------------------------------\n";
     oss << "Facilities UNDERCONSTRUCTION:\n";
     for (const auto* facility : underConstruction) 
     {
         if (facility) 
         {
-            oss << "  - " << facility->toString() << "\n";
+           oss << "FacilityName< " << facility->getName() << ">"<<"\n";
+           oss << "FacilityStatus<" << facility->strGetStatus() << ">"<<"\n";
         }
     }
-    */
+    
     return oss.str();  
 }
 

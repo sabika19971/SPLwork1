@@ -29,7 +29,7 @@ const string SimulateStep::toString() const
         default: stat = "PENDING";
             break;
     }
-    return "SimulateStep : " + std::to_string(numOfSteps) + " - " + stat; 
+    return "step " + std::to_string(numOfSteps) + " - " + stat; 
 }
 
 SimulateStep* SimulateStep::clone() const

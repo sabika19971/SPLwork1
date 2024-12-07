@@ -55,27 +55,56 @@ AddFacility* AddFacility :: clone() const
     return new AddFacility(*this);
 }
 
+// const string AddFacility:: toString() const 
+// {
+//     if( getStatus() == ActionStatus :: ERROR)
+//     {
+//         return getErrorMsg();
+//     }
+//     std::ostringstream addF;
+//     addF << "AddFacility : with Facility name:"+ facilityName + " Facility Category: ";
+//     if(facilityCategory == FacilityCategory::ECONOMY)
+//     {
+//         addF<< "ECONOMY ";
+//     }
+//     else if (facilityCategory == FacilityCategory::ENVIRONMENT)
+//     {
+//         addF<<"ENVIRONMENT ";
+//     }
+//     else
+//     {
+//         addF<< "LIFE_QUALITY ";
+//     }     
+//     addF << "Price | L | ECO | ENV " << price << "|" <<lifeQualityScore << "|"<<economyScore << "|" << environmentScore << " COMPLETE";
+//     return addF.str();
+// }
+
 const string AddFacility:: toString() const 
 {
-    if( getStatus() == ActionStatus :: ERROR)
-    {
-        return getErrorMsg();
-    }
     std::ostringstream addF;
-    addF << "AddFacility : with Facility name:"+ facilityName + " Facility Category: ";
-    if(facilityCategory == FacilityCategory::ECONOMY)
+    addF << "facility " << facilityName;
+   
+    if(facilityCategory == FacilityCategory::LIFE_QUALITY)
     {
-        addF<< "ECONOMY ";
+        addF<< "0 ";
     }
-    else if (facilityCategory == FacilityCategory::ENVIRONMENT)
+    else if (facilityCategory == FacilityCategory::ECONOMY)
     {
-        addF<<"ENVIRONMENT ";
+        addF<<"1 ";
     }
     else
     {
-        addF<< "LIFE_QUALITY ";
-    }     
-    addF << "Price | L | ECO | ENV " << price << "|" <<lifeQualityScore << "|"<<economyScore << "|" << environmentScore << " COMPLETE";
+        addF<< "2 ";
+    } 
+    addF << price <<" " << lifeQualityScore << " " << economyScore << " " <<environmentScore;
+     if( getStatus() == ActionStatus :: ERROR)
+    {
+        addF <<" ERROR";
+    }    
+    else
+    {
+        addF <<" COMPLETED";
+    }
     return addF.str();
 }
 

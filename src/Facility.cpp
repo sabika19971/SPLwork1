@@ -23,6 +23,7 @@ const int Facility :: getTimeLeft() const
 
 FacilityStatus Facility:: step()
 {
+ 
   timeLeft--;
   if(timeLeft == 0)
   {
@@ -60,5 +61,21 @@ const string Facility:: toString() const
     << "Environment Score: " << environment_score << "\n"
     << "Time Left: " << timeLeft;
     return ss.str();
+}
+
+const string Facility :: strGetStatus() const 
+{
+    string str;
+    if(status == FacilityStatus::OPERATIONAL)
+    {
+        str = "OPERATIONAL";
+    }
+    else
+    {
+        str = "UNDER_CONSTRUCTIONS";
+    }
+
+    return str;
+
 }
                     

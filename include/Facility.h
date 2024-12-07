@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <iostream>
 using std::string;
 using std::vector;
 
@@ -53,6 +54,7 @@ class Facility: public FacilityType {
         void setStatus(FacilityStatus status);
         const FacilityStatus& getStatus() const;
         const string toString() const;
+        const string strGetStatus() const;
 
         // WE ADDED
         Facility* clone() const;

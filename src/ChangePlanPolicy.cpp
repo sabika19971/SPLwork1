@@ -16,10 +16,11 @@ void ChangePlanPolicy:: act(Simulation& simulation)
         std::cout << "Cannot change selection policy" << std::endl;
     }
     else
-    {    
-        SelectionPolicy* sm = simulation.getPolicyInstancePointer(newPolicy); 
-        p.setSelectionPolicy(sm); // DELETES THE OLD POLICY POINTER
-        complete();
+    {   
+            SelectionPolicy* sm = simulation.getPolicyInstancePointer(newPolicy);
+            sm->setParam(p.getlifeQualityScore(),p.getEconomyScore(),p.getEnvironmentScore());
+            p.setSelectionPolicy(sm); // DELETES THE OLD POLICY POINTER  
+            complete();   
     }
 }
 
@@ -30,8 +31,20 @@ ChangePlanPolicy* ChangePlanPolicy:: clone()  const
 
 const string ChangePlanPolicy ::  toString() const 
 {
-    return "we have change the policy to " + newPolicy;
+
+    std::ostringstream addS;
+    addS << "changePolicy " << planId << " "<< newPolicy;
+    
+    
+    if(getStatus() == ActionStatus:: ERROR)
+    {
+       addS <<" ERROR";
+    }
+    addS << " COMPLETED"; 
+    return addS.str();
+    
 }
+
 
 
 

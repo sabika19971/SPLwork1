@@ -52,7 +52,7 @@ class Plan {
         int life_quality_score, economy_score, environment_score;
 
         // WE ADDED
-        int construction_limit;
+        size_t construction_limit;
         string policyType;
 
 };

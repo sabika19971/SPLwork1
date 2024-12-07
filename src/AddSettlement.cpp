@@ -39,26 +39,25 @@ AddSettlement* AddSettlement:: clone() const
 
 const string AddSettlement :: toString() const
 {
-    if(getStatus() == ActionStatus:: ERROR)
-    {
-        return getErrorMsg();
-    }
-    
     std::ostringstream addS;
-    addS << "AddSettlement : " + settlementName + " ";
-
+    addS << "settlement " + settlementName + " ";
+    
     switch(settlementType)
     {
         case SettlementType:: CITY :
-            addS << "CITY";
+            addS << "1";
             break;
         case SettlementType:: METROPOLIS : 
-            addS <<"METROPOLIS";
+            addS <<"2";
             break;
         case SettlementType:: VILLAGE : 
-            addS << "VILLAGE";
+            addS << "0";
             break;
         
+    }
+    if(getStatus() == ActionStatus:: ERROR)
+    {
+       addS <<" ERROR";
     }
     addS << " COMPLETED"; 
     return addS.str();

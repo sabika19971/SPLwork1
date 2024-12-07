@@ -1,5 +1,6 @@
 #include "../include/SelectionPolicy.h"
 
+
 NaiveSelection::NaiveSelection(): lastSelectedIndex(0) {}
 
 const FacilityType& NaiveSelection::selectFacility(const vector<FacilityType>& facilitiesOptions) 
@@ -16,4 +17,9 @@ const string NaiveSelection::toString() const
 NaiveSelection* NaiveSelection::clone() const
 {
     return new NaiveSelection(*this);
+}
+
+void NaiveSelection:: setParam (const int UlifeScore, const int UEconomyScore, const int UEnvScore)
+{
+    
 }

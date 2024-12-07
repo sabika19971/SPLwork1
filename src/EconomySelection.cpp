@@ -1,6 +1,7 @@
 #include "../include/SelectionPolicy.h"
 
 
+
 EconomySelection::EconomySelection(): lastSelectedIndex(0) {}
 
 const FacilityType& EconomySelection::selectFacility(const vector<FacilityType>& facilitiesOptions)
@@ -22,3 +23,9 @@ EconomySelection* EconomySelection::clone() const
 {
     return new EconomySelection(*this);
 }
+
+void EconomySelection:: setParam (const int UlifeScore, const int UEconomyScore, const int UEnvScore)
+{
+    
+}
+

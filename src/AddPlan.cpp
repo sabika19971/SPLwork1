@@ -30,9 +30,9 @@ const string AddPlan::toString() const
 {
     string stat;
     if(this -> getStatus() == ActionStatus::COMPLETED){
-         return "AddPlan : " + settlementName + " " + selectionPolicy + " - COMPLETED  " ; 
+         return "plan : " + settlementName + " " + selectionPolicy + "COMPLETED" ; 
     }
-    return getErrorMsg();
+    return  "plan : " + settlementName + " " + selectionPolicy + "ERROR" ; 
    
 }
 
