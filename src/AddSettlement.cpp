@@ -59,6 +59,10 @@ const string AddSettlement :: toString() const
     {
        addS <<" ERROR";
     }
-    addS << " COMPLETED"; 
+    else
+    {
+         addS << " COMPLETED";
+    }
+    
     return addS.str();
 }
