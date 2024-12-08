@@ -1,7 +1,7 @@
 #include "../include/SelectionPolicy.h"
 
 
-NaiveSelection::NaiveSelection(): lastSelectedIndex(0) {}
+NaiveSelection::NaiveSelection(): lastSelectedIndex(-1) {}
 
 const FacilityType& NaiveSelection::selectFacility(const vector<FacilityType>& facilitiesOptions) 
 {

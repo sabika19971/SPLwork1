@@ -103,15 +103,15 @@ void Plan :: setSelectionPolicy(SelectionPolicy* selectionPolicy)
 {
     // do not earase prints-  is not debug print - this is the output for the action according to instructions.
     std:: cout<< plan_id << std::endl;
-    if(selectionPolicy->toString() == "bal")
+    if((this -> selectionPolicy)->toString() == "bal")
     {
         std::cout << "previousPolicy: Balance" <<std::endl;
     }
-    else if(selectionPolicy->toString() == "nve")
+    else if((this -> selectionPolicy)->toString() == "nve")
     {
         std::cout << "previousPolicy: Naive" <<std::endl;
     }
-    else if(selectionPolicy->toString()=="eco")
+    else if((this -> selectionPolicy)->toString()=="eco")
     {
         std::cout << "previousPolicy: Economy" <<std::endl;
     }

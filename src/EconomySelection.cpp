@@ -2,7 +2,7 @@
 
 
 
-EconomySelection::EconomySelection(): lastSelectedIndex(0) {}
+EconomySelection::EconomySelection(): lastSelectedIndex(-1) {}
 
 const FacilityType& EconomySelection::selectFacility(const vector<FacilityType>& facilitiesOptions)
 {

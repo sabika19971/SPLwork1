@@ -61,7 +61,7 @@ const string AddSettlement :: toString() const
     }
     else
     {
-         addS << " COMPLETED";
+        addS << " COMPLETED";
     }
     
     return addS.str();

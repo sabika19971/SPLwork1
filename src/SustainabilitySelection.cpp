@@ -1,7 +1,7 @@
 #include "../include/SelectionPolicy.h"
 
 
-SustainabilitySelection::SustainabilitySelection(): lastSelectedIndex(0) {}
+SustainabilitySelection::SustainabilitySelection(): lastSelectedIndex(-1) {}
 
 const FacilityType& SustainabilitySelection::selectFacility(const vector<FacilityType>& facilitiesOptions)
 {

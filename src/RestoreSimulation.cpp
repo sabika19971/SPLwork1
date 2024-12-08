@@ -34,7 +34,8 @@ const string RestoreSimulation::toString() const
     {
        addS <<" ERROR";
     }
-    else{
+    else
+    {
        addS << " COMPLETED";
     }
     

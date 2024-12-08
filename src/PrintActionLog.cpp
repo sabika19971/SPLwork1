@@ -23,6 +23,9 @@ const string PrintActionsLog :: toString() const
     {
        addS <<" ERROR";
     }
-    addS << " COMPLETED";
+    else
+    {
+        addS << " COMPLETED";
+    }
     return addS.str();
 }
