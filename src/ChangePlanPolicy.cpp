@@ -1,6 +1,7 @@
 #include "../include/Action.h"
 #include "../include/Plan.h"
 #include "../include/Simulation.h"
+#include "../include/Facility.h"
 #include <climits> // for INT_MAX
 
 ChangePlanPolicy::ChangePlanPolicy(const int planId, const string& newPolicy): 
@@ -18,7 +19,14 @@ void ChangePlanPolicy:: act(Simulation& simulation)
     else
     {   
             SelectionPolicy* sm = simulation.getPolicyInstancePointer(newPolicy);
-            sm->setParam(p.getlifeQualityScore(),p.getEconomyScore(),p.getEnvironmentScore());
+            int tempLifeQualityScore = 0, tempEconomyScore = 0, tempEnvironmentScore = 0; 
+            for (Facility* facil : p.getUnderConstructionFacilities())
+            {
+                tempLifeQualityScore += facil -> getLifeQualityScore();
+                tempEconomyScore += facil -> getEconomyScore();
+                tempEnvironmentScore += facil -> getEnvironmentScore();
+            }
+            sm->setParam(p.getlifeQualityScore() + tempLifeQualityScore, p.getEconomyScore() + tempEconomyScore, p.getEnvironmentScore() + tempEnvironmentScore);
             p.setSelectionPolicy(sm); // DELETES THE OLD POLICY POINTER  
             complete();   
     }

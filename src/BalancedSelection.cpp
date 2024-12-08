@@ -3,7 +3,7 @@
 
 
 BalancedSelection::BalancedSelection(int LifeQualityScore, int EconomyScore, int EnvironmentScore) :
-LifeQualityScore(LifeQualityScore), EconomyScore(EconomyScore), EnvironmentScore(EnvironmentScore){} // no need for this->
+LifeQualityScore(LifeQualityScore), EconomyScore(EconomyScore), EnvironmentScore(EnvironmentScore){} 
 
 const FacilityType& BalancedSelection::selectFacility(const vector<FacilityType>& facilitiesOptions)
 {
@@ -48,6 +48,13 @@ void BalancedSelection :: setParam(const int ULifeScore, const int UEconomyScore
     LifeQualityScore = ULifeScore;
     EconomyScore = UEconomyScore;
     EnvironmentScore =UEnvScore;
+}
+
+void BalancedSelection :: addParam(const int ULifeScore, const int UEconomyScore, const int UEnvScore)
+{
+    LifeQualityScore += ULifeScore;
+    EconomyScore += UEconomyScore;
+    EnvironmentScore +=UEnvScore;
 }
 
 

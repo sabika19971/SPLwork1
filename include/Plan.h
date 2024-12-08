@@ -31,6 +31,7 @@ class Plan {
         // WE ADDED
         string getSettlementName() const;
         Plan(const Plan& other, Settlement* sett);
+        const vector<Facility*>& getUnderConstructionFacilities();
 
         // Rule of 3
         Plan(const Plan& other);

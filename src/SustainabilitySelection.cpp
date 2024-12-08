@@ -1,7 +1,9 @@
 #include "../include/SelectionPolicy.h"
 
 
-SustainabilitySelection::SustainabilitySelection(): lastSelectedIndex(-1) {}
+SustainabilitySelection::SustainabilitySelection(): lastSelectedIndex(-1) 
+{  
+}
 
 const FacilityType& SustainabilitySelection::selectFacility(const vector<FacilityType>& facilitiesOptions)
 {
@@ -24,6 +26,9 @@ SustainabilitySelection* SustainabilitySelection::clone() const
 }
 
 void SustainabilitySelection:: setParam (const int UlifeScore, const int UEconomyScore, const int UEnvScore)
-{
-    
+{ 
 }
+
+void SustainabilitySelection:: addParam (const int UlifeScore, const int UEconomyScore, const int UEnvScore)
+{
+}  

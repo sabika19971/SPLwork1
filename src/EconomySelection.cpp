@@ -2,7 +2,9 @@
 
 
 
-EconomySelection::EconomySelection(): lastSelectedIndex(-1) {}
+EconomySelection::EconomySelection(): lastSelectedIndex(-1)
+{
+}
 
 const FacilityType& EconomySelection::selectFacility(const vector<FacilityType>& facilitiesOptions)
 {
@@ -26,6 +28,8 @@ EconomySelection* EconomySelection::clone() const
 
 void EconomySelection:: setParam (const int UlifeScore, const int UEconomyScore, const int UEnvScore)
 {
-    
 }
 
+void EconomySelection:: addParam (const int UlifeScore, const int UEconomyScore, const int UEnvScore)
+{
+}

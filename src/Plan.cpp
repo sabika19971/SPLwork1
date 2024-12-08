@@ -102,7 +102,7 @@ const int Plan :: getPlanId() const
 void Plan :: setSelectionPolicy(SelectionPolicy* selectionPolicy)
 {
     // do not earase prints-  is not debug print - this is the output for the action according to instructions.
-    std:: cout<< plan_id << std::endl;
+    std:: cout<<  "planID: " << plan_id << std::endl;
     if((this -> selectionPolicy)->toString() == "bal")
     {
         std::cout << "previousPolicy: Balance" <<std::endl;
@@ -150,12 +150,13 @@ void Plan :: step()
         {
             const FacilityType& facil =  selectionPolicy -> selectFacility(facilityOptions);
             Facility* f = new Facility(facil, settlement.getName());
-            addFacility(f); 
+            addFacility(f);
+            selectionPolicy -> addParam (f->getLifeQualityScore(),f->getEconomyScore(), f->getEnvironmentScore());
         }
         status  = PlanStatus :: BUSY; 
     }
    
-    for (size_t i = 0; i < underConstruction.size(); )  // Notice we don't increment i manually here
+    for (size_t i = 0; i < underConstruction.size(); )  
     {
         if (underConstruction[i] -> step() == FacilityStatus::OPERATIONAL)
         {
@@ -166,11 +167,11 @@ void Plan :: step()
             underConstruction.erase(underConstruction.begin() + i);
             selectionPolicy->setParam(life_quality_score,economy_score,environment_score); // update the policy pram according to the plan pram.
             
-            // Don't increment i since we want to check the next element which moved into the current position
+           
         }
         else
         {
-            i++;  // Increment i only when we don't erase
+            i++;  
         }
     }
 
@@ -279,3 +280,7 @@ const string Plan::getPolicyType() const
    return policyType;
 }
     
+const vector<Facility*>& Plan::getUnderConstructionFacilities()
+{
+    return underConstruction;
+}

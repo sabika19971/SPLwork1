@@ -8,7 +8,6 @@ void RestoreSimulation::act(Simulation& simulation)
 {
     if (backup != nullptr)
     {
-        std::cout << "im in the not null" << std:: endl;
         simulation = *backup; 
         complete();
     }
@@ -16,7 +15,6 @@ void RestoreSimulation::act(Simulation& simulation)
     {
         std::cout <<"No backup available" << std::endl;
         error("No backup available");
-
     }
 }
 

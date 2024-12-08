@@ -1,6 +1,5 @@
 #include "../include/Action.h"
 #include "../include/Simulation.h"
-
 #include "../include/SelectionPolicy.h"
 
 
@@ -20,7 +19,6 @@ void AddPlan::act(Simulation& simulation)
      }
      else{
         error("Cannot create this plan"); 
-       
         std::cout<<"Cannot create this plan"<<std::endl;   
      }    
 
@@ -42,28 +40,3 @@ AddPlan* AddPlan::clone() const
 {
     return new AddPlan(*this); 
 }
-
-// // WE ADDED
-// SelectionPolicy* AddPlan::getPolicyInstancePointer(const string& threeLetters)
-// {
-//     if(threeLetters == "nve")
-//     {
-//         return new NaiveSelection();
-//     }
-//     else if (threeLetters == "eco")
-//     {
-//         return new EconomySelection();
-//     }
-//     else if (threeLetters == "env")
-//     {
-//         return new SustainabilitySelection();
-//     }
-//     else if (threeLetters == "bal")
-//     { 
-//         return new BalancedSelection(0,0,0);
-//     }
-//     else
-//     {
-//         return nullptr;
-//     }
-// }

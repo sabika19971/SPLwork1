@@ -12,6 +12,8 @@ class SelectionPolicy {
         virtual SelectionPolicy* clone() const = 0;
         virtual ~SelectionPolicy() = default;
         virtual void setParam (const int UlifeScore, const int UEconomyScore, const int UEnvScore) = 0;
+        virtual void addParam (const int UlifeScore, const int UEconomyScore, const int UEnvScore) = 0;
+    
         //----------- setters ---------------// 
         
 };
@@ -24,6 +26,7 @@ class NaiveSelection: public SelectionPolicy {
         NaiveSelection *clone() const override;
         ~NaiveSelection() override = default;
         void setParam (const int UlifeScore, const int UEconomyScore, const int UEnvScore) override;
+        void addParam (const int UlifeScore, const int UEconomyScore, const int UEnvScore) override;
     private:
         int lastSelectedIndex;
 };
@@ -36,6 +39,7 @@ class BalancedSelection: public SelectionPolicy {
         BalancedSelection *clone() const override;
         ~BalancedSelection() override = default;
         void setParam (const int UlifeScore, const int UEconomyScore, const int UEnvScore) override;
+        void addParam (const int UlifeScore, const int UEconomyScore, const int UEnvScore) override;
         
 
     private:
@@ -55,6 +59,7 @@ class EconomySelection: public SelectionPolicy {
         EconomySelection *clone() const override;
         ~EconomySelection() override = default;
         void setParam (const int UlifeScore, const int UEconomyScore, const int UEnvScore) override;
+        void addParam (const int UlifeScore, const int UEconomyScore, const int UEnvScore) override;
         
     private:
         int lastSelectedIndex;
@@ -68,7 +73,8 @@ class SustainabilitySelection: public SelectionPolicy {
         const string toString() const override;
         SustainabilitySelection *clone() const override;
         ~SustainabilitySelection() override = default;
-        void setParam (const int UlifeScore, const int UEconomyScore, const int UEnvScore)override;
+        void setParam (const int UlifeScore, const int UEconomyScore, const int UEnvScore) override;
+        void addParam (const int UlifeScore, const int UEconomyScore, const int UEnvScore) override;
     private:
         int lastSelectedIndex;
 };
